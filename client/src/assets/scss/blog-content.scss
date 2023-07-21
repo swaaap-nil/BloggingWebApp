@@ -1,0 +1,53 @@
+.blog-heading{
+    color:#000000;
+    text-align:left;
+    font-size:47px;
+    font-family:Inter;
+    line-height:auto;
+    width:900px;
+    }
+
+.author-and-date{
+    margin-top: 10px;
+    color:#000000;
+    font-size:21px;
+    font-family:Inter;
+    line-height:auto;
+    font-weight: 300;
+    font-style: italic;
+    
+}
+
+.blog-post{
+    display: flex;
+    align-items: flex-start;
+}
+.main-dabba{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading-image{
+    background-color:#d9d9d9;
+    height:449px;
+    width:900px;
+}
+
+.introduction-paragraph{
+    margin-top: 30px;
+    color:#000000;
+    text-align:left;
+    vertical-align:text-top;
+    font-size:18px;
+    font-family:Inter;
+    line-height:auto;
+    border-style:hidden;
+    outline:none;
+    width:600px;
+    font-weight: 400;
+}
+
+.chunks-container{
+    margin-bottom: 30px;
+}

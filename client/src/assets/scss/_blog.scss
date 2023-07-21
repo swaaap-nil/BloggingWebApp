@@ -1,0 +1,70 @@
+.tag-border
+{
+display: inline-flex;
+border-radius:91px;
+border:1px solid $black-level-3;
+align-content: center;
+padding-inline-start: 10px;
+padding-inline-end: 10px;
+margin-right: 10px;
+font-size: 12px;
+
+}
+.title{
+    color:$black-level-1;
+    font-size:21px;
+    width: 330px;
+    font-weight: 510;
+    font-family:Inter;
+    letter-spacing:-0.8px;
+    line-height:auto;
+}
+.tags-container {
+    color:$black-level-2;
+    margin-top: 5px;
+    width: 330px;
+    display: flex-start;
+    justify-content: center;
+    align-items: left;
+  }
+
+  .description{
+    margin-top: 5px;
+    color:$black-level-3;
+    text-align:left;
+    font-size:13px;
+    font-family:Inter;
+    letter-spacing:0.5px;
+    line-height:auto;
+    width:320px;}
+
+  .img
+  {
+    background-color:#d9d9d9;
+    height:205px;
+    width:330px;
+  }
+
+  .blog-post{
+    margin-top: 5rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    
+
+  }
+
+  .name-date-container{
+    color:$black-level-0;
+    margin-top: 15px;
+    text-align:left;
+    font-size:13px;
+    font-family:Inter;
+    letter-spacing:0.7px;
+    line-height:auto;
+    width:330px;
+  }
+
+
+  
