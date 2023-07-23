@@ -1,5 +1,7 @@
-import React from 'react';
-import { Button, Form, Input, InputNumber , Divider} from 'antd';
+// import { WriteChunk } from '../components/CreateWriteChunkComponentsArray';
+import React, { useState } from 'react';
+import { Button, Form, Input, Divider} from 'antd';
+import {createComponentsArray} from "../components/CreateWriteChunkComponentsArray" 
 
 const layout = {
   labelCol: { span: 8 },
@@ -23,9 +25,14 @@ const onFinish = (values: any) => {
   console.log(values);
 };
 
-const App: React.FC = () => (
+const App: React.FC = () => {
 
-    <Form  className='write-blog-container'
+const [noOfChunks,setChunks]= useState(1)
+const componentsArray =  createComponentsArray(noOfChunks);
+
+
+    
+return (<Form  className='write-blog-container'
       {...layout}
       name="nest-messages"
       onFinish={onFinish}
@@ -42,25 +49,26 @@ const App: React.FC = () => (
 
       <Divider />
 
-      <Form.Item name={['blog', 'subheading']} label="Sub Heading" rules={[{ required: true }]}>
-        <Input />
-      </Form.Item>
-      
-      <Form.Item name={['blog', 'content ']} label="Content Paragraph" rules={[{ required :true }]}>
-        <Input.TextArea />
-      </Form.Item>
+      <div>
+      {componentsArray.map((Component, index) => (
+        <div key={index}>
+          <Component/>
+        </div>
+      ))}
+      </div>
 
-      <Divider />
-
-
-      
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+    <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
       <Button className="button-color-fix" type="primary" htmlType="submit">
         Submit
       </Button>
     </Form.Item>
-    </Form>
-  
-);
 
-export default App;
+    </Form>)
+  
+};
+
+
+    
+   
+     
+  export default App;
