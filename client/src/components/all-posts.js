@@ -14,7 +14,7 @@ export default function AllPosts(props){
     )
 
     return(
-        <div class = " grid grid-cols-4 justify-center items-center">
+        <div class = " grid grid-cols-4 justify-center ">
             {componentsArray}
         </div>
     )

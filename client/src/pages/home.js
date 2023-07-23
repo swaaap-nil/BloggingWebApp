@@ -8,70 +8,10 @@ import { getPostsQuery } from '../assets/possibleQueries/possibleQueries';
 
 export default function Home() {
 
-  //UseState hook to implement pagination
-  const[currentPage,setCurrentPage]=useState(1)
-  const[postsPerPage,setPostsPerPage] = useState(4) 
-  
-  const lastPostIndex = currentPage * postsPerPage  
-  const firstPostIndex = lastPostIndex - postsPerPage
-  
-
-  const postsArrayDummy = [ {
-            title : 'sadfsddf',
-            link : '#',
-            date : moment().format('MMM DD , YYYY'),
-            image : '1.png',
-            categories : ['EASY','bull','interracial'],
-        },
-    
-        {
-            title : 'sadfsddf',
-            link : '#',
-            date : moment().format('MMM DD , YYYY'),
-            categories : ['DS','bull','interracial'],
-            image : '2.png',
-        },
-    
-        {
-            title : 'sadfsddf',
-            link : '#',
-            date : moment().format('MMM DD , YYYY'),
-            categories : ['DFFHSD','bull','interracial'],
-            image : '3.png',
-        },
-    
-        {
-            title : 'sadfsddf',
-            link : '#',
-            date : moment().format('MMM DD , YYYY'),
-            image : '4.png',
-            categories : ['HDG','bull','interracial'],
-        },
-    
-        {
-            title : 'sadfsddf',
-            link : '#',
-            date : moment().format('MMM DD , YYYY'),
-            image : '5.png',
-            categories : ['HFD','bull','interracial'],
-        },
-        {
-            title : 'sadfsddf',
-            link : '#',
-            date : moment().format('MMM DD , YYYY'),
-            image : '6.png',
-            categories : ['JFHG','bull','interracial'],
-        },
-        {
-            title : 'sadfsddf',
-            link : '#',
-            date : moment().format('MMM DD , YYYY'),
-            image : '6.png',
-            categories : ['JFH','bull','interracial'],
-        }]
-    
-
-
+    //UseState hook to implement pagination
+    const[currentPage,setCurrentPage]=useState(1)
+    const[postsPerPage,setPostsPerPage] = useState(4) 
+ 
   //use query is a apollo react asyncnous hook
   // TODO keep it in seperate file and make sure to return asyncronously that is return only when data from query is ready 
   const { loading, error, data } = useQuery(getPostsQuery);
@@ -86,13 +26,18 @@ export default function Home() {
 
   //data && makes sure to render the Allposts Component only when data is defined and ready
    
-  //handling pagination
-  const numberOfPagesRequired = Math.ceil( data.getPosts.length % postsPerPage )
-  const currentPosts = data.getPosts.slice(firstPostIndex,lastPostIndex)
-        
-  const handlePageChange = (pageNumber,pageSize)=>  {
-    setCurrentPage(pageNumber)
-  }
+
+  
+  const lastPostIndex = currentPage * postsPerPage  
+  const firstPostIndex = lastPostIndex - postsPerPage
+
+   //handling pagination
+   const currentPosts = data.getPosts.slice(firstPostIndex,lastPostIndex)
+         
+   const handlePageChange = (pageNumber,pageSize)=>  {
+     setCurrentPage(pageNumber)
+   }
+ 
   return (    
      
     <main>
@@ -124,7 +69,7 @@ export default function Home() {
 
 
             <div className='pagination'>
-                <Pagination defaultCurrentcurrent={1}  onChange={handlePageChange} total={numberOfPagesRequired*10}/>
+                <Pagination defaultCurrentcurrent={1}  onChange={handlePageChange} total={data.getPosts.length} pageSize={postsPerPage}/>
             </div>
 
             

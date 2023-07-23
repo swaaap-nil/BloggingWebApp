@@ -1,19 +1,21 @@
   import React from "react";
   import { Button, Form, Input, Divider} from 'antd';
   import { title } from "process";
+import CompoundedSpace from "antd/es/space";
 
   interface WriteChunkProps {
     title: string;
+    content : string
   }
 
   function WriteChunkComponent(props:WriteChunkProps) {
-    const {title} = props;
+    const {title,content} = props;
     return <>
-              <Form.Item name={['blog', 'subheading']} label="Sub Heading" rules={[{ required: true }]}>
+              <Form.Item name={['blog', title]} label={title} rules={[{ required: true }]}>
                 <Input />
               </Form.Item>
 
-                <Form.Item name={['blog', 'content ']} label="Content Paragraph" rules={[{required: true}]}>
+                <Form.Item name={['blog', content]} label={content} rules={[{required: true}]}>
                   <Input.TextArea/>
                 </Form.Item>
 
@@ -30,7 +32,8 @@
       const componentsArray : React.FC[] = [];
       for(let i = 0; i<noofComponentsToBeCreated;i++){
         const title = `title${i}`;
-        componentsArray.push(() => <WriteChunkComponent title={title} />)
+        const content = `content${i}`
+        componentsArray.push(() => <WriteChunkComponent title={title} content = {content}/>)
       }
       return componentsArray;
   }

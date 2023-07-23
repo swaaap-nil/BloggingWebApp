@@ -7,6 +7,7 @@ var schema = require("./schema/schema")
 //The database instance
 var mongoose = require("mongoose")
 
+
 //to allow cross origin requests
 var cors = require("cors")
 app.use(cors()) 
