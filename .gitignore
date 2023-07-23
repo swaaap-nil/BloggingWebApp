@@ -10,8 +10,8 @@ node_modules/
 build/
 .env
 
-/client/node_modules
-/server/node_modules
+/client/node_modules/
+/server/node_modules/
 
 
 # testing
