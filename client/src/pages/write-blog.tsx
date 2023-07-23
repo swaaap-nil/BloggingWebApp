@@ -11,7 +11,6 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-/* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: '${label} is required!',
   types: {
@@ -19,26 +18,25 @@ const validateMessages = {
     number: '${label} is not a valid number!',
   },
 };
-/* eslint-enable no-template-curly-in-string */
 
-interface ContentItem {
+interface subHeadingAndContentType {
   subheading: string;
   image: string;
   content: string;
 }
 
-interface FormData {
-  title: string;
-  date: string;
-  categories: string[];
-  author: string;
-  description: string;
-  introduction: string;
-  content: {
-    subheading: string;
-    image: string;
-    content: string;
-  }[];
+interface FormDataType {
+      title: string;
+      date: string;
+      categories: string[];
+      author: string;
+      description: string;
+      introduction: string;
+      content: {
+        subheading: string;
+        image: string;
+        content: string;
+      }[];
 }
 
 export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
@@ -58,52 +56,33 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
 
   //defines what to do once the submit button is clicked
   function onSubmitButtonBeingClicked(values: any)
-  {
+  { 
+        // console.log("Fields From User= "+JSON.stringify(values));
 
-    const dummyformdata : FormData = {
-          title : "asfaasfafssdf",
-          date: "ate",
-          author: "author",
-          description: "description",
-          introduction: "troduction",
-          categories : ["categoriesArray","asrasf"],
-          content : 
-          [
-            {
-              'subheading': 'string',
-              "image": "string",
-              "content": "string"
-            },
-          ]
-    }
+        const entriesMadeInForm : FormDataType = values.blog;
         
-        console.log("Fields From User= "+JSON.stringify(values));
-
-        const form : FormData = values.blog
-        const categoriesArray : string[] = values.categories
-
-        const contentArray: ContentItem[] = [];
-        
-        for (let i = 0; form[`title${i}`] && form[`content${i}`]; i++) {
+        //generating SubHeading And Content Array
+        const subHeadingAndContentArray: subHeadingAndContentType[] = [];
+        for (let i = 0; entriesMadeInForm[`title${i}`] && entriesMadeInForm[`content${i}`]; i++) {
           const contentItem = {
             
-          subheading: form[`title${i}`],
+          subheading: entriesMadeInForm[`title${i}`],
           image: "", // Replace with image data if you have it
-          content: form[`content${i}`],
+          content: entriesMadeInForm[`content${i}`],
           };
-          contentArray.push(contentItem);
+          subHeadingAndContentArray.push(contentItem);
       }
-        const formData :FormData = {
-          title: form.title,
-          date: form.date,
-          author: form.author,
-          description: form.description,
-          introduction: form.introduction,
-          categories : categoriesArray,
-          content : contentArray
+        const formData : FormDataType = {
+          title: entriesMadeInForm.title,
+          date: entriesMadeInForm.date,
+          author: entriesMadeInForm.author,
+          description: entriesMadeInForm.description,
+          introduction: entriesMadeInForm.introduction,
+          categories : entriesMadeInForm.categories,
+          content : subHeadingAndContentArray
       };
 
-      console.warn("form data ="+ JSON.stringify(formData))
+      // console.warn("form data ="+ JSON.stringify(formData))
 
       callThisFnToExecuteTheMutation({variables:formData})
         .then((result) => {
@@ -112,10 +91,9 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
       })
       .catch((error) => {
         // Handle errors
-        console.error("Error adding post:", error);
+        // console.error("Error adding post:", error);
       });
   };
-  console.log("eror="+error?.message)
       
   return (<Form className='write-blog-container'
         {...layout}
@@ -139,17 +117,15 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
         </Form.Item>
 
         <Form.Item
-          name="categories"
-      label="categories"
-      rules={[{ required: true, message: 'Please select your favourite colors!', type: 'array' }]}
-    >
-      <Select mode="multiple" placeholder="Please select favourite colors">
-        <Option value="red">Red</Option>
-        <Option value="green">Green</Option>
-        <Option value="blue">Blue</Option>
-      </Select>
+          name={['blog',"categories"]} label="categories" rules={[{ required: true, message: 'Please select related categories', type: 'array' }]}>
+        
+            <Select mode="multiple" placeholder="Please select related categories">
+                <Option value="red">Technology</Option>
+                <Option value="green">Travel</Option>
+                <Option value="blue">Life</Option>
+            </Select>
 
-    </Form.Item>
+        </Form.Item>
         
         <Form.Item name={['blog', 'date']} label="date" rules={[{ required :true }]}>
           <Input />

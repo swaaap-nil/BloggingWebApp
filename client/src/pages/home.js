@@ -6,6 +6,7 @@ import { Pagination } from 'antd';
 import { getPostsQuery } from '../assets/possibleQueries/possibleQueries';
 
 
+
 export default function Home() {
 
     //UseState hook to implement pagination
@@ -26,8 +27,6 @@ export default function Home() {
 
   //data && makes sure to render the Allposts Component only when data is defined and ready
    
-
-  
   const lastPostIndex = currentPage * postsPerPage  
   const firstPostIndex = lastPostIndex - postsPerPage
 
