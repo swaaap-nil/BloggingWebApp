@@ -7,8 +7,9 @@
     justify-content: space-between;
     color: $black-level-2;
     top: 0;
-    z-index: 100;
-    position: fixed;
+    z-index: 0;
+    position: relative;
+
 
     .menu-content-container{
         display: flex;
