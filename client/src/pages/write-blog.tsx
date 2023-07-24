@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client';
 import { addPostMutation } from '../assets/possibleQueries/possibleQueries';
 import { Option } from 'antd/lib/mentions';
 import {  UploadOutlined } from '@ant-design/icons';
+import normaliseAndUploadTheFile from '../components/normaliseTheImage.js';
 
 
 const layout = {
@@ -19,6 +20,11 @@ const validateMessages = {
     email: '${label} is not a valid email!',
     number: '${label} is not a valid number!',
   },
+};
+
+const normFile = (e: any) => {
+  console.log('Upload event:', e);
+  const result = normaliseAndUploadTheFile(e)
 };
 
 interface subHeadingAndContentType {
@@ -57,21 +63,14 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
     setChunks((prevNoOfChunks) => (prevNoOfChunks>1)?prevNoOfChunks-1:prevNoOfChunks);
   };
 
-
+ 
   //defines what to do once the submit button is clicked
   function onSubmitButtonBeingClicked(values: any)
   { 
 
-    
-
       //  console.log("Fields From User= "+JSON.stringify(values));
-      
         const entriesMadeInForm : FormDataType = values.blog;
 
-        
-        // const randomImageName = (bytes=32) => crypto.randomBytes(bytes).toString('hex')
-        // console.log(randomImageName)
-        
         //generating SubHeading And Content Array
         const subHeadingAndContentArray: subHeadingAndContentType[] = [];
         for (let i = 0; entriesMadeInForm[`title${i}`] && entriesMadeInForm[`content${i}`]; i++) {
@@ -107,14 +106,8 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
         // console.error("Error adding post:", error);
       });
   };
-  const normFile = (e: any) => {
-    console.log('Upload event:', e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
-  };
-      
+
+ 
   return (<Form className='write-blog-container'
         {...layout}
         name="nest-messages"
@@ -134,7 +127,7 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
           valuePropName="fileList"
           getValueFromEvent={normFile}
         >
-          <Upload name="logo" action="/upload.do" listType="picture" maxCount={1}>
+          <Upload name="logo" listType="picture" maxCount={1}>
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
          </Form.Item> 
