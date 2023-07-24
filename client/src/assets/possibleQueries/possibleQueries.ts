@@ -7,6 +7,7 @@ export const getPostsQuery = gql`
                     description
                     categories
                     date
+                    thumbnail
                   }
           }
       `;
@@ -17,8 +18,10 @@ export const getPostByTitleQuery = gql`
       title
       author
       date
+      headImage
       content{
         subheading
+        image
         content
       }
     }
@@ -30,6 +33,8 @@ export const addPostMutation = gql`
       $title: String!
       $date: String!
       $categories: [String]!
+      $headImage : String
+      $thumbnail : String
       $author: String!
       $description: String!
       $introduction: String!
@@ -39,6 +44,8 @@ export const addPostMutation = gql`
         title: $title
         date: $date
         categories: $categories
+        headImage : $headImage
+        thumbnail : $thumbnail
         author: $author
         description: $description
         introduction: $introduction
@@ -47,6 +54,8 @@ export const addPostMutation = gql`
           id
           title
           date
+          headImage
+          thumbnail
           categories
           author
           description

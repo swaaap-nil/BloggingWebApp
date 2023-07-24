@@ -5,6 +5,8 @@ import {createComponentsArray} from "../components/CreateWriteChunkComponentsArr
 import { useMutation } from '@apollo/client';
 import { addPostMutation } from '../assets/possibleQueries/possibleQueries';
 import { Option } from 'antd/lib/mentions';
+import { S3 } from 'aws-sdk';
+
 
 const layout = {
   labelCol: { span: 8 },
@@ -32,6 +34,8 @@ interface FormDataType {
       author: string;
       description: string;
       introduction: string;
+      headImage : any;
+      thumbnail : any;
       content: {
         subheading: string;
         image: string;
@@ -47,7 +51,7 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
 
   const oneMoreSubheadingPlease = () => {
     setChunks((prevNoOfChunks) => prevNoOfChunks + 1);
-  };
+};
 
   const oneLessSubheadingPlease = () => {
     setChunks((prevNoOfChunks) => (prevNoOfChunks>1)?prevNoOfChunks-1:prevNoOfChunks);
@@ -58,8 +62,21 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
   function onSubmitButtonBeingClicked(values: any)
   { 
         // console.log("Fields From User= "+JSON.stringify(values));
+        const awsConfig = {
+          region: 'ap-south-1',
+          accessKeyId: 'your-access-key-id',
+          secretAccessKey: 'your-secret-access-key',
+        };
+
 
         const entriesMadeInForm : FormDataType = values.blog;
+
+        //extracting headImage
+        const headImage = entriesMadeInForm.headImage
+        const imageFile = headImage[0].originFileObj;
+        const fileName = headImage[0].fileName;
+        // const randomImageName = (bytes=32) => crypto.randomBytes(bytes).toString('hex')
+        // console.log(randomImageName)
         
         //generating SubHeading And Content Array
         const subHeadingAndContentArray: subHeadingAndContentType[] = [];
@@ -79,7 +96,9 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
           description: entriesMadeInForm.description,
           introduction: entriesMadeInForm.introduction,
           categories : entriesMadeInForm.categories,
-          content : subHeadingAndContentArray
+          content : subHeadingAndContentArray,
+          headImage : fileName,
+          thumbnail : "",
       };
 
       // console.warn("form data ="+ JSON.stringify(formData))
@@ -167,8 +186,5 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
   
 };
 
-
-    
-   
      
   export default ThisComponentisResponsibleForWritingBlogs;

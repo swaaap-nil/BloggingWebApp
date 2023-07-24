@@ -6,7 +6,7 @@
       categories: [String],
       author: String,
       description: String,
-      image: String,
+      headImage: String,
       upvotes: String,
       introduction : String,
       thumbnail : String,

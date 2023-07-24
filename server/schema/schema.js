@@ -116,11 +116,13 @@
                     author :  {type : GraphQLString},
                     description :  {type : GraphQLString},
                     introduction : {type : GraphQLString},
+                    headimage : {type : GraphQLString},
+                    thumbnail : {type : GraphQLString},
                     content : {type :new GraphQLList ( ContentSubTypeInput) }
                 }, 
                     resolve(parent,args){
                         console.log("reached resolve function with " + JSON.stringify(args))
-                        const { title, date, categories, author, description, introduction, content } = args;
+                        const { title, date, categories, author, description, introduction, content,headImage,thumbnail } = args;
                         let post = new Post({
                             title,
                             date,
@@ -128,7 +130,9 @@
                             author,
                             description,
                             introduction,
-                            content
+                            content,
+                            headImage,
+                            thumbnail,
                         });
                         return post.save()
                     }

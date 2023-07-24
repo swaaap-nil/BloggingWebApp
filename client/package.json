@@ -17,6 +17,7 @@
     "add": "^2.0.6",
     "antd": "^5.7.2",
     "autoprefixer": "^10.4.14",
+    "aws-sdk": "^2.1420.0",
     "bootstrap": "^5.3.0",
     "graphql": "^16.7.1",
     "moment": "^2.29.4",
