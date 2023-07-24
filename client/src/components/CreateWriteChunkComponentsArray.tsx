@@ -1,7 +1,8 @@
   import React from "react";
-  import { Button, Form, Input, Divider} from 'antd';
+  import { PlusOutlined } from '@ant-design/icons';
+  import { Button, Form, Input, Divider,Upload} from 'antd';
   import { title } from "process";
-import CompoundedSpace from "antd/es/space";
+  import CompoundedSpace from "antd/es/space";
 
   interface WriteChunkProps {
     title: string;
@@ -9,11 +10,27 @@ import CompoundedSpace from "antd/es/space";
   }
 
   function WriteChunkComponent(props:WriteChunkProps) {
+    const normFile = (e: any) => {
+      console.log('Upload event:', e);
+      if (Array.isArray(e)) {
+        return e;
+      }
+      return e?.fileList;
+    };
     const {title,content} = props;
     return <>
               <Form.Item name={['blog', title]} label={title} rules={[{ required: true }]}>
                 <Input />
               </Form.Item>
+
+              <Form.Item name={['blog', `${title}image`]} label= {`${title}image`} valuePropName="fileList" getValueFromEvent={normFile}>
+              <Upload action="/upload.do" listType="picture-card">
+                <div>
+                  <PlusOutlined />
+                  <div style={{ marginTop: 8 }}>Upload</div>
+                </div>
+              </Upload>
+            </Form.Item>
 
                 <Form.Item name={['blog', content]} label={content} rules={[{required: true}]}>
                   <Input.TextArea/>

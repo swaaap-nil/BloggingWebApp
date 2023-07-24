@@ -31,6 +31,7 @@
             date :  {type : GraphQLString},
             categories : {type : new GraphQLList (GraphQLString)},
             author :  {type : GraphQLString},
+            headImage : {type: GraphQLString},
             description :  {type : GraphQLString},
             thumbnail : {type : GraphQLString},
             image :  {type : GraphQLString},
@@ -116,7 +117,7 @@
                     author :  {type : GraphQLString},
                     description :  {type : GraphQLString},
                     introduction : {type : GraphQLString},
-                    headimage : {type : GraphQLString},
+                    headImage : {type : GraphQLString},
                     thumbnail : {type : GraphQLString},
                     content : {type :new GraphQLList ( ContentSubTypeInput) }
                 }, 

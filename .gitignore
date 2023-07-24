@@ -13,6 +13,10 @@ build/
 /client/node_modules/
 /server/node_modules/
 
+x.json
+/x.json
+.x.json
+x.json/
 
 # testing
 /coverage

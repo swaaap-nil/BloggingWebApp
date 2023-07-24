@@ -1,11 +1,11 @@
 // import { WriteChunk } from '../components/CreateWriteChunkComponentsArray';
 import React, { useState } from 'react';
-import { Button, Form, Input, Divider,Select} from 'antd';
+import { Button, Form, Input, Divider,Select,Upload} from 'antd';
 import {createComponentsArray} from "../components/CreateWriteChunkComponentsArray" 
 import { useMutation } from '@apollo/client';
 import { addPostMutation } from '../assets/possibleQueries/possibleQueries';
 import { Option } from 'antd/lib/mentions';
-import { S3 } from 'aws-sdk';
+import {  UploadOutlined } from '@ant-design/icons';
 
 
 const layout = {
@@ -61,20 +61,14 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
   //defines what to do once the submit button is clicked
   function onSubmitButtonBeingClicked(values: any)
   { 
-        // console.log("Fields From User= "+JSON.stringify(values));
-        const awsConfig = {
-          region: 'ap-south-1',
-          accessKeyId: 'your-access-key-id',
-          secretAccessKey: 'your-secret-access-key',
-        };
 
+    
 
+      //  console.log("Fields From User= "+JSON.stringify(values));
+      
         const entriesMadeInForm : FormDataType = values.blog;
 
-        //extracting headImage
-        const headImage = entriesMadeInForm.headImage
-        const imageFile = headImage[0].originFileObj;
-        const fileName = headImage[0].fileName;
+        
         // const randomImageName = (bytes=32) => crypto.randomBytes(bytes).toString('hex')
         // console.log(randomImageName)
         
@@ -84,7 +78,7 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
           const contentItem = {
             
           subheading: entriesMadeInForm[`title${i}`],
-          image: "", // Replace with image data if you have it
+          image: "isContentImageWorking", // Replace with image data if you have it
           content: entriesMadeInForm[`content${i}`],
           };
           subHeadingAndContentArray.push(contentItem);
@@ -97,8 +91,8 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
           introduction: entriesMadeInForm.introduction,
           categories : entriesMadeInForm.categories,
           content : subHeadingAndContentArray,
-          headImage : fileName,
-          thumbnail : "",
+          headImage : "isheadImageWorking",
+          thumbnail : "isThumbnailWorking",
       };
 
       // console.warn("form data ="+ JSON.stringify(formData))
@@ -113,6 +107,13 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
         // console.error("Error adding post:", error);
       });
   };
+  const normFile = (e: any) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
+  };
       
   return (<Form className='write-blog-container'
         {...layout}
@@ -126,6 +127,17 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
         <Form.Item name={['blog', 'title']} label="Main Heading" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
+
+        <Form.Item
+          name={['blog','headimage']}
+          label="headImage"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
+        >
+          <Upload name="logo" action="/upload.do" listType="picture" maxCount={1}>
+            <Button icon={<UploadOutlined />}>Click to upload</Button>
+          </Upload>
+         </Form.Item> 
         
         <Form.Item name={['blog', 'introduction']} label="Introduction Paragraph" rules={[{ required :true }]}>
           <Input.TextArea />
@@ -145,6 +157,17 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
             </Select>
 
         </Form.Item>
+
+        <Form.Item
+          name={['blog','thumbnail']}
+          label="thumbnail"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
+        >
+          <Upload name="logo" action="/upload.do" listType="picture" maxCount={1}>
+            <Button icon={<UploadOutlined />}>Click to upload</Button>
+          </Upload>
+         </Form.Item> 
         
         <Form.Item name={['blog', 'date']} label="date" rules={[{ required :true }]}>
           <Input />
@@ -158,9 +181,9 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
 
         <div>
         {ArrayOfSubheadingComponentsGenerated.map((Component, index) => (
-          <div key={index}>
-            <Component/>
-          </div>
+          
+            <Component key={index}/>
+         
         ))}
         </div>
         
@@ -182,7 +205,7 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
         </Button>
       </Form.Item>
 
-      </Form>)
+      </Form>)  
   
 };
 
