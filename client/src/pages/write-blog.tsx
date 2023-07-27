@@ -1,59 +1,56 @@
-// import { WriteChunk } from '../components/CreateWriteChunkComponentsArray';
+
 import React, { useState } from 'react';
 import { Button, Form, Input, Divider,Select,Upload} from 'antd';
-import {createComponentsArray} from "../components/CreateWriteChunkComponentsArray" 
+import {createComponentsArray} from "../components/subcontent-component" 
 import { useMutation } from '@apollo/client';
 import { addPostMutation } from '../assets/possibleQueries/possibleQueries';
 import { Option } from 'antd/lib/mentions';
 import {  UploadOutlined } from '@ant-design/icons';
-import normaliseAndUploadTheFile from '../components/normaliseTheImage.js';
+import customUploadRequestHandler from '../customFunctions/upload-request-handler';
+import generateRandomName from '../customFunctions/random-name-generator';
 
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
 
-const validateMessages = {
-  required: '${label} is required!',
-  types: {
-    email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
-  },
-};
 
-const normFile = (e: any) => {
-  console.log('Upload event:', e);
-  const result = normaliseAndUploadTheFile(e)
-};
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  };
+  const validateMessages = {
+    required: '${label} is required!',
+    types: {
+      email: '${label} is not a valid email!',
+      number: '${label} is not a valid number!',
+    },
+  };
+  interface subHeadingAndContentType {
+      subheading: string;
+      image: string;
+      content: string;
+  };
+  interface FormDataType {
 
-interface subHeadingAndContentType {
-  subheading: string;
-  image: string;
-  content: string;
-}
+    
+        title: string;
+        date: string;
+        categories: string[];
+        author: string;
+        description: string;
+        introduction: string;
+        headImage : any;
+        thumbnail : any;
+        content: {
+          subheading: string;
+          image: string;
+          content: string;
+        }[];
+  };
+  
 
-interface FormDataType {
-      title: string;
-      date: string;
-      categories: string[];
-      author: string;
-      description: string;
-      introduction: string;
-      headImage : any;
-      thumbnail : any;
-      content: {
-        subheading: string;
-        image: string;
-        content: string;
-      }[];
-}
-
-export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
-
+  export default function ThisComponentisResponsibleForWritingBlogs(){
   const [noOfSubheadings,setChunks]= useState(1)
   const ArrayOfSubheadingComponentsGenerated =  createComponentsArray(noOfSubheadings);
-  const [callThisFnToExecuteTheMutation, { data, loading, error }] = useMutation(addPostMutation);
+  const [addToDatabase, { data, loading, error }] = useMutation(addPostMutation);
 
   const oneMoreSubheadingPlease = () => {
     setChunks((prevNoOfChunks) => prevNoOfChunks + 1);
@@ -63,13 +60,12 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
     setChunks((prevNoOfChunks) => (prevNoOfChunks>1)?prevNoOfChunks-1:prevNoOfChunks);
   };
 
- 
   //defines what to do once the submit button is clicked
-  function onSubmitButtonBeingClicked(values: any)
-  { 
+    function onSubmitButtonBeingClicked(values)
+    { 
 
-      //  console.log("Fields From User= "+JSON.stringify(values));
-        const entriesMadeInForm : FormDataType = values.blog;
+         // console.log("Fields From User= "+JSON.stringify(values.blog));
+          const entriesMadeInForm : FormDataType = values.blog;
 
         //generating SubHeading And Content Array
         const subHeadingAndContentArray: subHeadingAndContentType[] = [];
@@ -82,6 +78,7 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
           };
           subHeadingAndContentArray.push(contentItem);
       }
+       
         const formData : FormDataType = {
           title: entriesMadeInForm.title,
           date: entriesMadeInForm.date,
@@ -90,13 +87,13 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
           introduction: entriesMadeInForm.introduction,
           categories : entriesMadeInForm.categories,
           content : subHeadingAndContentArray,
-          headImage : "isheadImageWorking",
+          headImage : entriesMadeInForm.headImage.file.response,
           thumbnail : "isThumbnailWorking",
       };
 
       // console.warn("form data ="+ JSON.stringify(formData))
 
-      callThisFnToExecuteTheMutation({variables:formData})
+      addToDatabase({variables:formData})
         .then((result) => {
         // Handle the response after the mutation is executed
         console.log("Post added:", result.data.addPost);
@@ -107,7 +104,7 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
       });
   };
 
- 
+
   return (<Form className='write-blog-container'
         {...layout}
         name="nest-messages"
@@ -121,16 +118,11 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item
-          name={['blog','headimage']}
-          label="headImage"
-          valuePropName="fileList"
-          getValueFromEvent={normFile}
-        >
-          <Upload name="logo" listType="picture" maxCount={1}>
-            <Button icon={<UploadOutlined />}>Click to upload</Button>
-          </Upload>
-         </Form.Item> 
+        <Form.Item name={['blog','headImage']} label="headImage" >
+           <Upload name="logo" listType="picture" maxCount={1} customRequest={customUploadRequestHandler}>
+              <Button icon={<UploadOutlined />}>Click to upload</Button>
+            </Upload>
+          </Form.Item> 
         
         <Form.Item name={['blog', 'introduction']} label="Introduction Paragraph" rules={[{ required :true }]}>
           <Input.TextArea />
@@ -151,13 +143,8 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
 
         </Form.Item>
 
-        <Form.Item
-          name={['blog','thumbnail']}
-          label="thumbnail"
-          valuePropName="fileList"
-          getValueFromEvent={normFile}
-        >
-          <Upload name="logo" action="/upload.do" listType="picture" maxCount={1}>
+        <Form.Item name={['blog','thumbnail']} label="thumbnail">
+          <Upload name="logo" listType="picture" maxCount={1} >
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
          </Form.Item> 
@@ -180,27 +167,25 @@ export const ThisComponentisResponsibleForWritingBlogs: React.FC = () => {
         ))}
         </div>
         
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button className="button-color-fix" type="primary" onClick={oneMoreSubheadingPlease}>
-          ADD
-        </Button>
-      </Form.Item>
+          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+            <Button className="button-color-fix" type="primary" onClick={oneMoreSubheadingPlease}>
+              ADD
+            </Button>
+          </Form.Item>
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button className="button-color-fix" type="primary" onClick={oneLessSubheadingPlease}>
-          SUB
-        </Button>
-      </Form.Item>
+          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+            <Button className="button-color-fix" type="primary" onClick={oneLessSubheadingPlease}>
+              SUB
+            </Button>
+          </Form.Item>
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button className="button-color-fix" type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
+          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+            <Button className="button-color-fix" type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
 
       </Form>)  
   
 };
 
-     
-  export default ThisComponentisResponsibleForWritingBlogs;

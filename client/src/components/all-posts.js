@@ -1,5 +1,5 @@
 import React from "react";
-import  {EachPost}  from "./";
+import  {EachPost}  from ".";
 
 export default function AllPosts(props){
     

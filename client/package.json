@@ -52,7 +52,6 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.22.9",
-    "@craco/craco": "^7.1.0",
     "webpack-cli": "^5.1.4"
   }
 }
