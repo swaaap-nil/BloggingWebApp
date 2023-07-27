@@ -7,7 +7,7 @@ import { addPostMutation } from '../assets/possibleQueries/possibleQueries';
 import { Option } from 'antd/lib/mentions';
 import {  UploadOutlined } from '@ant-design/icons';
 import customUploadRequestHandler from '../customFunctions/upload-request-handler';
-import generateRandomName from '../customFunctions/random-name-generator';
+// import generateRandomName from '../customFunctions/random-name-generator';
 
 
 
@@ -45,7 +45,7 @@ import generateRandomName from '../customFunctions/random-name-generator';
           content: string;
         }[];
   };
-  
+
 
   export default function ThisComponentisResponsibleForWritingBlogs(){
   const [noOfSubheadings,setChunks]= useState(1)
