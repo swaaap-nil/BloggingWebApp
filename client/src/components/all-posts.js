@@ -1,21 +1,18 @@
 import React from "react";
-import  {EachPost}  from ".";
+import { EachPost } from ".";
 
-export default function AllPosts(props){
-    
-    // console.log("postsArray =", props.postsArray);
-    // console.log("type of postsArray =", typeof props.postsArray);
-    const componentsArray =  props.postsArray.map((eachPost)=>
-        
-            <div >
-                <EachPost eachPost = {eachPost}/>
-            </div>
-        
-    )
+const AllPosts = React.memo((props) => {
+  console.log("render AllPosts called. props = "+JSON.stringify(props));
+  
+  const componentsArray = props.postsArray.map((eachPost) => (
+    <EachPost key={eachPost.title} eachPost={eachPost} />
+  ));
 
-    return(
-        <div class = " grid grid-cols-4 justify-center ">
-            {componentsArray}
-        </div>
-    )
-}
+  return (
+    <div className="grid grid-cols-4 justify-center">
+      {componentsArray}
+    </div>
+  );
+});
+
+export default AllPosts;

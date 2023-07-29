@@ -1,31 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import extractImageUrlFromFile from "../customFunctions/convert-file-to-img-url"
 import promiseToGetCorrectUrl from "../customFunctions/async-fetch-handler";
 function EachPost(props){
-    
+    console.log("render EachPost Component called")
+
     const[thumbnailUrl,setThumbNailUrl] = useState('https://picsum.photos/330/205')
     const currentPost = props.eachPost
     
-    const promise = promiseToGetCorrectUrl(currentPost.thumbnail)
-    promise.then((returnedUrl)=>{
+    useEffect(()=>
+    {
+        const promise = promiseToGetCorrectUrl(currentPost.thumbnail)
+        promise.then((returnedUrl)=>{
         if(returnedUrl!=""){
+            console.log("generatedImageUrl,so Re-rending Component")
             setThumbNailUrl(returnedUrl)
         }else
         console.log("recieved empty url")
     })
-    
-    
+    },[])
+
     //Rendering an array of all the tags
     const renderedTagsArray =  currentPost.categories.map(
         (eachCategory)=>
-        <span className="tag-border">
+        <span key={eachCategory} className="tag-border">
             {eachCategory}
         </span>
 )
-
-
     return(
    
     <div className='blog-post'>
@@ -56,7 +57,5 @@ function EachPost(props){
 
     )
 }
-
-
 
 export default EachPost

@@ -27,7 +27,7 @@ export default async function promiseToGetCorrectUrl(keyNameForThumbnail : strin
       recievedFileFromAWS = await getDownloadPromiseFor(keyNameForThumbnail)
       // dataFromFile = await readBfromA(recievedFileFromAWS.Body,"data")
       //dataFromFile = await readData(recievedFileFromAWS);
-      console.log("data from file ="+dataFromFile)
+      //console.log("data from file ="+dataFromFile)
 
     } catch (error) {
       finalImageUrl=''

@@ -20,8 +20,7 @@ const s3 = new AWS.S3();
 
 export default function getDownloadPromiseFor(keyNameFortheFile : string): any{
 
-    console.log("Download from s3 called")
-    console.log("key name = "+keyNameFortheFile)
+    console.log("Download from s3 called for key: " +keyNameFortheFile)
     const params = {
   
         // Bucket: process.env.S3_BUCKET_NAME,
@@ -36,7 +35,7 @@ export default function getDownloadPromiseFor(keyNameFortheFile : string): any{
             reject(new Error("Couldnt fetch file from AWS S3")) // Reject the promise with the empty URL
           } else {
             // console.log("file from aws server "+ JSON.stringify(data));
-          console.log("recieved file from AWS server")
+            //console.log("recieved file from AWS server")
             resolve(data); // Resolve the promise with the URL
           }
         });
