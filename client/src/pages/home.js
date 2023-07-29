@@ -16,9 +16,9 @@ export default function Home() {
   //use query is a apollo react asyncnous hook
   // TODO keep it in seperate file and make sure to return asyncronously that is return only when data from query is ready 
   const { loading, error, data } = useQuery(getPostsQuery);
-  console.log("error =", error);
-  console.log("loading =", loading);
-  console.log("data =",data);
+  // console.log("error =", error);
+  // console.log("loading =", loading);
+  // console.log("data =",data);
 
   
   //TODO

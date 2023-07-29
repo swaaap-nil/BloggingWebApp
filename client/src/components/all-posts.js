@@ -3,8 +3,8 @@ import  {EachPost}  from ".";
 
 export default function AllPosts(props){
     
-    console.log("postsArray =", props.postsArray);
-    console.log("type of postsArray =", typeof props.postsArray);
+    // console.log("postsArray =", props.postsArray);
+    // console.log("type of postsArray =", typeof props.postsArray);
     const componentsArray =  props.postsArray.map((eachPost)=>
         
             <div >

@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import extractImageUrlFromFile from "../customFunctions/convert-file-to-img-url"
+import promiseToGetCorrectUrl from "../customFunctions/async-fetch-handler";
 function EachPost(props){
-
-    const randomImage = () =>{
-        return 'https://picsum.photos/330/205'
-    }
+    
+    const[thumbnailUrl,setThumbNailUrl] = useState('https://picsum.photos/330/205')
     const currentPost = props.eachPost
-
-
+    
+    const promise = promiseToGetCorrectUrl(currentPost.thumbnail)
+    promise.then((returnedUrl)=>{
+        if(returnedUrl!=""){
+            setThumbNailUrl(returnedUrl)
+        }else
+        console.log("recieved empty url")
+    })
+    
+    
     //Rendering an array of all the tags
     const renderedTagsArray =  currentPost.categories.map(
         (eachCategory)=>
@@ -24,7 +32,7 @@ function EachPost(props){
 
         <Link to = {`/blog/${encodeURIComponent(currentPost.title)}`}>
         <div className='thumbnail'>
-        <img className='img' src={randomImage()}/>
+        <img className='img' src={thumbnailUrl}/>
         </div>
 
         <div className='name-date-container'>

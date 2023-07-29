@@ -10,8 +10,6 @@ import customUploadRequestHandler from '../customFunctions/upload-request-handle
 // import generateRandomName from '../customFunctions/random-name-generator';
 
 
-
-
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -88,7 +86,7 @@ import customUploadRequestHandler from '../customFunctions/upload-request-handle
           categories : entriesMadeInForm.categories,
           content : subHeadingAndContentArray,
           headImage : entriesMadeInForm.headImage.file.response,
-          thumbnail : "isThumbnailWorking",
+          thumbnail : entriesMadeInForm.thumbnail.file.response,
       };
 
       // console.warn("form data ="+ JSON.stringify(formData))
@@ -144,7 +142,7 @@ import customUploadRequestHandler from '../customFunctions/upload-request-handle
         </Form.Item>
 
         <Form.Item name={['blog','thumbnail']} label="thumbnail">
-          <Upload name="logo" listType="picture" maxCount={1} >
+          <Upload name="logo" listType="picture" maxCount={1} customRequest={customUploadRequestHandler}>
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
          </Form.Item> 

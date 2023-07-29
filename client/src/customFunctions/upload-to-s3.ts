@@ -26,7 +26,8 @@ export default function getUploadPromiseFor(fileTobeUploaded: any, keyNameForthe
             reject(""); // Reject the promise with the error
           } else {
             console.log(`Image uploaded successfully. URL: ${data.Location}`);
-            resolve(`${data.Location}`); // Resolve the promise with the URL
+            // resolve(`${data.Location}`); // Resolve the promise with the URL
+            resolve(keyNameFortheFile)
           }
         });
       });
