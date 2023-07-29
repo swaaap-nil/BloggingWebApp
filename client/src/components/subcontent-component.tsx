@@ -1,9 +1,6 @@
   import React from "react";
   import { PlusOutlined } from '@ant-design/icons';
-  import { Button, Form, Input, Divider,Upload} from 'antd';
-  import { title } from "process";
-  import CompoundedSpace from "antd/es/space";
-
+  import { Form, Input, Divider,Upload} from 'antd';
   interface WriteChunkProps {
     title: string;
     content : string
@@ -17,14 +14,15 @@
       }
       return e?.fileList;
     };
+    
     const {title,content} = props;
     return <>
               <Form.Item name={['blog', title]} label={title} rules={[{ required: true }]}>
                 <Input />
               </Form.Item>
 
-              <Form.Item name={['blog', `${title}image`]} label= {`${title}image`} valuePropName="fileList" getValueFromEvent={normFile}>
-              <Upload action="/upload.do" listType="picture-card">
+              <Form.Item name={['blog', `${title}image`]} label= {`${title}image`} valuePropName="fileList">
+              <Upload listType="picture-card" >
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>Upload</div>
@@ -32,11 +30,11 @@
               </Upload>
             </Form.Item>
 
-                <Form.Item name={['blog', content]} label={content} rules={[{required: true}]}>
+            <Form.Item name={['blog', content]} label={content} rules={[{required: true}]}>
                   <Input.TextArea/>
-                </Form.Item>
+            </Form.Item>
 
-                <Divider />
+            <Divider />
           </>;
   }
 

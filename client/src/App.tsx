@@ -1,6 +1,6 @@
 
 
-import Navigation from './components/navigation.js';
+import Navigation from './components/navigation-bar.js';
 import {BrowserRouter as Router,Route,Routes} from 'react-router-dom'
 import React from 'react'
 import Home from './pages/home.js';
@@ -9,7 +9,7 @@ import Login from './pages/login';
 import Contact from './pages/contact.js';
 import BlogContent from './pages/blog-content.js'
 import Error404Page from './pages/error-404.js'
-import WriteBlog from './pages/write-blog'
+import WriteBlog from './pages/write-blog.tsx'
 import './index.css';
 
 import Footer from './components/footer.js';
