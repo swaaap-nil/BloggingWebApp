@@ -1,5 +1,5 @@
-import React, { memo, useState } from 'react';
-import { useQuery,useLazyQuery } from '@apollo/client';
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
 import { AllPosts } from '../components';
 import { Pagination } from 'antd';
 import { getPostsQuery } from '../assets/possibleQueries/possibleQueries';
@@ -78,4 +78,4 @@ import { getPostsQuery } from '../assets/possibleQueries/possibleQueries';
   )
 }
 
-export default memo(Home)
+export default Home

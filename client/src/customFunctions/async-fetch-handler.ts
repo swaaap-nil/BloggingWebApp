@@ -17,10 +17,7 @@ interface recievedDataFromS3Type{
 
 export default async function promiseToGetCorrectUrl(keyNameForThumbnail : string):Promise<string>{
 
-  
-  
   let recievedFileFromAWS : recievedDataFromS3Type ;
-  let dataFromFile : any
   let finalImageUrl : string
 
     try {
