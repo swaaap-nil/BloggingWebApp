@@ -3,7 +3,7 @@ import promiseToGetCorrectUrl from "../customFunctions/async-fetch-handler";
 import { useParams } from "react-router-dom";
 import { getPostByTitleQuery } from "../assets/possibleQueries/possibleQueries";
 import { useQuery } from "@apollo/client";
-import AllChunks from "../components/all-chunks"
+import AllChunks from "../components/display-all-chunks"
 
 export default function BlogContent(){
     const {title} = useParams();
@@ -24,7 +24,7 @@ export default function BlogContent(){
             const promise = promiseToGetCorrectUrl(post.headImage)
             promise.then((returnedUrl)=>{
             if(returnedUrl!=""){
-                console.log("generated ImageUrl Successfully,so Re-rending Component")
+                console.log("generated ImageUrl Sucessfully,so Re-rending Component")
                 setHeadImageUrl(returnedUrl)
             }
             else console.log("recieved empty url")

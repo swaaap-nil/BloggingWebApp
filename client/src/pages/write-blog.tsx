@@ -1,13 +1,13 @@
 
 import React, { useState } from 'react';
 import { Button, Form, Input, Divider,Select,Upload} from 'antd';
-import {createComponentsArray} from "../components/subcontent-component" 
 import { useMutation } from '@apollo/client';
 import { addPostMutation } from '../assets/possibleQueries/possibleQueries';
 import { Option } from 'antd/lib/mentions';
 import {  UploadOutlined } from '@ant-design/icons';
 import customUploadRequestHandler from '../customFunctions/upload-request-handler';
-// import generateRandomName from '../customFunctions/random-name-generator';
+import Chunk from "../components/write-in-chunks"
+
 
 
   const layout = {
@@ -46,16 +46,18 @@ import customUploadRequestHandler from '../customFunctions/upload-request-handle
 
 
   export default function ThisComponentisResponsibleForWritingBlogs(){
-  const [noOfSubheadings,setChunks]= useState(1)
-  const ArrayOfSubheadingComponentsGenerated =  createComponentsArray(noOfSubheadings);
+    const [chunks, setChunks] = useState<{ subheading?: string; content?: string; image?: string }[]>([]);
+
   const [addToDatabase, { data, loading, error }] = useMutation(addPostMutation);
 
-  const oneMoreSubheadingPlease = () => {
-    setChunks((prevNoOfChunks) => prevNoOfChunks + 1);
-};
+  const handleAddChunk = () => {
+    setChunks([...chunks, {}]);
+  };
 
-  const oneLessSubheadingPlease = () => {
-    setChunks((prevNoOfChunks) => (prevNoOfChunks>1)?prevNoOfChunks-1:prevNoOfChunks);
+  const handleChunkChange = (index, changedFields) => {
+    setChunks((prevChunks) =>
+      prevChunks.map((chunk, i) => (i === index ? { ...chunk, ...changedFields } : chunk))
+    );
   };
 
   //defines what to do once the submit button is clicked
@@ -67,10 +69,10 @@ import customUploadRequestHandler from '../customFunctions/upload-request-handle
 
         //generating SubHeading And Content Array
         const subHeadingAndContentArray: subHeadingAndContentType[] = [];
-        for (let i = 0; entriesMadeInForm[`title${i}`] && entriesMadeInForm[`content${i}`]; i++) {
+        for (let i = 0; entriesMadeInForm[`subheading${i}`] && entriesMadeInForm[`content${i}`]; i++) {
           const contentItem = {
             
-          subheading: entriesMadeInForm[`title${i}`],
+          subheading: entriesMadeInForm[`subheading${i}`],
           image: entriesMadeInForm[`image${i}`].file.response, // Replace with image data if you have it
           content: entriesMadeInForm[`content${i}`],
           };
@@ -169,26 +171,22 @@ import customUploadRequestHandler from '../customFunctions/upload-request-handle
         <Divider />
 
         <div>
-        {ArrayOfSubheadingComponentsGenerated.map((Component, index) => {
-            console.log("mapping...")
-            return <React.Fragment>
-              <Component key={index}/> 
-              </React.Fragment>
-                   
-        })}
+            {chunks.map((chunk, index) => (
+              <Chunk
+                key={index}
+                index={index}
+                chunk={chunk}
+                onChange={handleChunkChange}
+              />
+            ))}
         </div>
         
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-            <Button className="button-color-fix" type="primary" onClick={oneMoreSubheadingPlease}>
-              ADD
+            <Button className="button-color-fix" type="primary" onClick={handleAddChunk}>
+            Add Chunk
             </Button>
           </Form.Item>
 
-          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-            <Button className="button-color-fix" type="primary" onClick={oneLessSubheadingPlease}>
-              SUB
-            </Button>
-          </Form.Item>
 
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button className="button-color-fix" type="primary" htmlType="submit">
