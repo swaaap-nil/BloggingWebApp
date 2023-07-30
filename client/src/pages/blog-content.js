@@ -1,4 +1,5 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
+import promiseToGetCorrectUrl from "../customFunctions/async-fetch-handler";
 import { useParams } from "react-router-dom";
 import { getPostByTitleQuery } from "../assets/possibleQueries/possibleQueries";
 import { useQuery } from "@apollo/client";
@@ -6,44 +7,38 @@ import AllChunks from "../components/all-chunks"
 
 export default function BlogContent(){
     const {title} = useParams();
-    
+    let post;
+    const[headImage,setHeadImageUrl] = useState('https://picsum.photos/900/449')
     const {loading,error,data} = useQuery(getPostByTitleQuery,{variables : {title}})
-    const post = data?.getPostByTitle
+     
+    // console.log("error =", error);
+    // console.log("loading =", loading) ;
+    // console.log("data =",data);
     
+    //once data is fetched start fetching img from AWS
+    useEffect(()=>
+    {
+        if(data)
+        {
+            console.log("Post Fetched :",data)
+            const promise = promiseToGetCorrectUrl(post.headImage)
+            promise.then((returnedUrl)=>{
+            if(returnedUrl!=""){
+                console.log("generated ImageUrl Successfully,so Re-rending Component")
+                setHeadImageUrl(returnedUrl)
+            }
+            else console.log("recieved empty url")
+            })
+        }
+    },[data])
 
-    console.log("error =", error);
-    console.log("loading =", loading) ;
-    console.log("data =",data);
-
-    if (loading) {
+    if (loading) 
         return <p>Loading...</p>;
-      }
-    
-      if (error) {
+    if (error) 
         return <p>Error: {error.message}</p>;
-      }
 
-      const AAllChunks = [
-        {
-          subheading : "chunk1",
-          content : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        },
-        
-        {
-          subheading : "chunk2",
-          content : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        },
-        
-        { subheading : "chunk3",
-          content : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        },
 
-        {  subheading : "chunk4",
-          content : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        },
-
-        
-      ];
+    post = data?.getPostByTitle
 
     return <div className="main-dabba">
             
@@ -58,7 +53,7 @@ export default function BlogContent(){
                 </div>
 
                 <div className="heading-image">
-                  <img src='https://picsum.photos/900/449'/>
+                  <img src={headImage}/>
                 </div>
 
                 <div className="introduction-paragraph">

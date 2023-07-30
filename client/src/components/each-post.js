@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import promiseToGetCorrectUrl from "../customFunctions/async-fetch-handler";
+
 function EachPost(props){
-    console.log("render EachPost Component called")
+    const currentPost = props.eachPost
+    console.log("rendering post: "+ currentPost.title)
 
     const[thumbnailUrl,setThumbNailUrl] = useState('https://picsum.photos/330/205')
-    const currentPost = props.eachPost
     
     useEffect(()=>
     {
@@ -32,25 +32,26 @@ function EachPost(props){
     <div className='blog-post'>
 
         <Link to = {`/blog/${encodeURIComponent(currentPost.title)}`}>
-        <div className='thumbnail'>
-        <img className='img' src={thumbnailUrl}/>
-        </div>
+        
+                <div className='thumbnail'>
+                    <img className='img' src={thumbnailUrl}/>
+                </div>
 
-        <div className='name-date-container'>
-        {currentPost.author}-{currentPost.date}
-        </div>
-        
-        <h5 className="title">
-            {currentPost.title}
-        </h5>
-        
-        <p className="description">
-            {currentPost.description}
-        </p>
-        
-        <div className='tags-container'>
-            {renderedTagsArray}
-        </div>
+                <div className='name-date-container'>
+                {currentPost.author}-{currentPost.date}
+                </div>
+                
+                <h5 className="title">
+                    {currentPost.title}
+                </h5>
+                
+                <p className="description">
+                    {currentPost.description}
+                </p>
+                
+                <div className='tags-container'>
+                    {renderedTagsArray}
+                </div>
         </Link>
         
     </div>
@@ -58,4 +59,4 @@ function EachPost(props){
     )
 }
 
-export default EachPost
+export default memo( EachPost)

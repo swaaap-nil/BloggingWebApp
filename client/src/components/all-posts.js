@@ -1,8 +1,8 @@
 import React from "react";
-import { EachPost } from ".";
+import  EachPost  from "./each-post";
 
 const AllPosts = React.memo((props) => {
-  console.log("render AllPosts called. props = "+JSON.stringify(props));
+  console.log("Rendering AllPosts....");
   
   const componentsArray = props.postsArray.map((eachPost) => (
     <EachPost key={eachPost.title} eachPost={eachPost} />

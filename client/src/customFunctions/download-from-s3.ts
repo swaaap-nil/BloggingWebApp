@@ -20,7 +20,7 @@ const s3 = new AWS.S3();
 
 export default function getDownloadPromiseFor(keyNameFortheFile : string): any{
 
-    console.log("Download from s3 called for key: " +keyNameFortheFile)
+    console.log("Downloading from S3 for key value: " +keyNameFortheFile)
     const params = {
   
         // Bucket: process.env.S3_BUCKET_NAME,
@@ -36,6 +36,7 @@ export default function getDownloadPromiseFor(keyNameFortheFile : string): any{
           } else {
             // console.log("file from aws server "+ JSON.stringify(data));
             //console.log("recieved file from AWS server")
+            console.log("Downloaded successfully")
             resolve(data); // Resolve the promise with the URL
           }
         });

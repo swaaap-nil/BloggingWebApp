@@ -34,6 +34,12 @@
     width:900px;
 }
 
+.heading-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .introduction-paragraph{
     margin-top: 30px;
     color:#000000;

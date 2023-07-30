@@ -62,8 +62,8 @@ import customUploadRequestHandler from '../customFunctions/upload-request-handle
     function onSubmitButtonBeingClicked(values)
     { 
 
-         // console.log("Fields From User= "+JSON.stringify(values.blog));
-          const entriesMadeInForm : FormDataType = values.blog;
+         console.log("Fields From User= ",values.blog);
+        const entriesMadeInForm : FormDataType = values.blog;
 
         //generating SubHeading And Content Array
         const subHeadingAndContentArray: subHeadingAndContentType[] = [];
@@ -71,7 +71,7 @@ import customUploadRequestHandler from '../customFunctions/upload-request-handle
           const contentItem = {
             
           subheading: entriesMadeInForm[`title${i}`],
-          image: "isContentImageWorking", // Replace with image data if you have it
+          image: entriesMadeInForm[`image${i}`].file.response, // Replace with image data if you have it
           content: entriesMadeInForm[`content${i}`],
           };
           subHeadingAndContentArray.push(contentItem);
@@ -133,11 +133,22 @@ import customUploadRequestHandler from '../customFunctions/upload-request-handle
         <Form.Item
           name={['blog',"categories"]} label="categories" rules={[{ required: true, message: 'Please select related categories', type: 'array' }]}>
         
-            <Select mode="multiple" placeholder="Please select related categories">
-                <Option value="red">Technology</Option>
-                <Option value="green">Travel</Option>
-                <Option value="blue">Life</Option>
-            </Select>
+            <Select mode="multiple" placeholder="Please select related categories" maxTagCount={3}>
+                <Option value="Technology">Technology</Option>
+                <Option value="Travel">Travel</Option>
+                <Option value="Life">Life</Option>
+                <Option value="Academics">Academics</Option>
+                <Option value="Finance">Money</Option>
+                <Option value="Science">Science</Option>
+                <Option value="History">History</Option>
+                <Option value="Culture">Culture</Option>
+                <Option value="Story">Story</Option>
+                <Option value="Review">Review</Option>
+                <Option value="Entertainment">Entertainment</Option>
+                <Option value="Personal Growth">Personal Growth</Option>
+                <Option value="Nature">Nature</Option>
+                <Option value="Career">Career</Option>
+           </Select>
 
         </Form.Item>
 
@@ -158,11 +169,13 @@ import customUploadRequestHandler from '../customFunctions/upload-request-handle
         <Divider />
 
         <div>
-        {ArrayOfSubheadingComponentsGenerated.map((Component, index) => (
-          
-            <Component key={index}/>
-         
-        ))}
+        {ArrayOfSubheadingComponentsGenerated.map((Component, index) => {
+            console.log("mapping...")
+            return <React.Fragment>
+              <Component key={index}/> 
+              </React.Fragment>
+                   
+        })}
         </div>
         
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>

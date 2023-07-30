@@ -38,11 +38,17 @@ font-size: 12px;
     line-height:auto;
     width:320px;}
 
-  .img
+  .thumbnail img
   {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .thumbnail{
     background-color:#d9d9d9;
     height:205px;
-    width:330px;
+    width:330px
   }
 
   .blog-post{

@@ -1,7 +1,7 @@
  import generateRandomName from '../customFunctions/random-name-generator';
 import getUploadPromiseFor from './upload-to-s3';
 export default async function customUploadRequestHandler(options){
-
+    //fix upload request handler
     const { file, onSuccess, onError } = options;
   
     console.log("Request Recieved To Upload File "+file)
@@ -11,4 +11,5 @@ export default async function customUploadRequestHandler(options){
       
     uploadAndGetUrlPromise.then((uploadedFileUrl) => {onSuccess(uploadedFileUrl, file)})
     uploadAndGetUrlPromise.catch((blankUrl)=>{onError(blankUrl,file)})
+    
 }

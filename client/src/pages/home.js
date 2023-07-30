@@ -17,9 +17,9 @@ import { getPostsQuery } from '../assets/possibleQueries/possibleQueries';
       console.log("Data fetched from useQuery:", data);
     },
   });
-  console.log("error =", error);
-  console.log("loading =", loading);
-  console.log("data =",data);
+  // console.log("error =", error);
+  // console.log("loading =", loading);
+  // console.log("data =",data);
   
   //TODO
   if (loading) return <p>Loading...</p>;

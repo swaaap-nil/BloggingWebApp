@@ -1,55 +1,56 @@
-  import React from "react";
+  import React, { memo, useState } from "react";
   import { PlusOutlined } from '@ant-design/icons';
   import { Form, Input, Divider,Upload} from 'antd';
+  import customUploadRequestHandler from "../customFunctions/upload-request-handler";
+
   interface WriteChunkProps {
     title: string;
     content : string
+    image : string
   }
 
-  function WriteChunkComponent(props:WriteChunkProps) {
-    const normFile = (e: any) => {
-      console.log('Upload event:', e);
-      if (Array.isArray(e)) {
-        return e;
-      }
-      return e?.fileList;
-    };
-    
-    const {title,content} = props;
-    return <>
-              <Form.Item name={['blog', title]} label={title} rules={[{ required: true }]}>
-                <Input />
-              </Form.Item>
-
-              <Form.Item name={['blog', `${title}image`]} label= {`${title}image`} valuePropName="fileList">
-              <Upload listType="picture-card" >
-                <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>Upload</div>
-                </div>
-              </Upload>
-            </Form.Item>
-
-            <Form.Item name={['blog', content]} label={content} rules={[{required: true}]}>
-                  <Input.TextArea/>
-            </Form.Item>
-
-            <Divider />
-          </>;
-  }
+  
 
   export function createComponentsArray(noofComponentsToBeCreated:number): React.FC[]{
       
-      //checking if the no of components to be created is an integer
-      if (!Number.isInteger(noofComponentsToBeCreated)) {
-        throw new Error("Parameter must be an integer.");
-    }
+      const WriteChunkComponent= memo((props:WriteChunkProps)=> {
+        const {title,content,image} = props;
+  
+        return <>
+            <Form.Item name={['blog', title]} label={title} rules={[{ required: true }]}>
+              <Input />
+            </Form.Item>
+
+            <Form.Item name={['blog', image]} label= {image} >
+            <Upload listType="picture-card" maxCount={1} customRequest={customUploadRequestHandler} >
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </div>
+            </Upload>
+          </Form.Item>
+        
+         <Form.Item name={['blog', content]} label={content} rules={[{required: true}]}>
+                <Input.TextArea/>
+          </Form.Item>
+
+          <Divider />
+        </>;
+})
+      
+    
       const componentsArray : React.FC[] = [];
-      for(let i = 0; i<noofComponentsToBeCreated;i++){
-        const title = `title${i}`;
-        const content = `content${i}`
-        componentsArray.push(() => <WriteChunkComponent title={title} content = {content}/>)
+        for(let i = 0; i<noofComponentsToBeCreated;i++){
+        let title = `title${i}`;
+        let content = `content${i}`
+        let image = `image${i}`
+
+        console.log("generating",title,content,image)
+
+        componentsArray.push(() => <WriteChunkComponent title={title} content = {content} image = {image} />)
       }
       return componentsArray;
   }
     
+
+  

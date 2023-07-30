@@ -1,5 +1,5 @@
 import React from "react";
-import  {EachChunk}  from "./";
+import  EachChunk from "./each-chunk"
 
 export default function AllChunks(props){
     
