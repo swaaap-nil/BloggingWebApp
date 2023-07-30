@@ -1,5 +1,5 @@
 import React from "react";
-import  EachPost  from "./each-post";
+import  EachPost  from "./render-each-post-for-home";
 
 const AllPosts = React.memo((props) => {
   console.log("Rendering AllPosts....");

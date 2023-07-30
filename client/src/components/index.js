@@ -1,6 +1,3 @@
-import AllPosts from "./all-posts";
-import EachPost from "./each-post";
-import EachChunk from "./each-chunk";
-import AllChunks from "./all-chunks";
-
-export {AllPosts,EachPost,EachChunk,AllChunks}
+import AllPosts from "./display-all-posts-at-home";
+import EachPost from "./render-each-post-for-home";
+export {AllPosts,EachPost,}
