@@ -40,7 +40,7 @@ import { getPostsQuery } from '../assets/possibleQueries/possibleQueries';
   return (    
      
     <main>
-          <div className='home' class = "mt-16">
+          <div className='home' class ='mt-8'>
             
             <div className='heading-super-script'>
                 The blog

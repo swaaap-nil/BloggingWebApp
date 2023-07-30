@@ -1,20 +1,20 @@
 var express = require("express"); // MODULE TO BUILD THE EXPRESS APP
 var { graphqlHTTP } = require("express-graphql") // Module to make express app handle graphiql requests
-
+var dotenv =require("dotenv")
 var app = express(); //the express app!!
 var schema = require("./schema/schema")
 
 //The database instance
 var mongoose = require("mongoose")
 
-
+dotenv.config()
 //to allow cross origin requests
 var cors = require("cors")
 app.use(cors()) 
 
 // connectToDB();
 
-const mongoDB = "mongodb+srv://swaap:swaap@blogdatabase.nqyrzcj.mongodb.net/BlogDatabase"
+const mongoDB = process.env.CONNECTION_URL_TO_MONGODB_DATABASE
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB);
@@ -31,7 +31,7 @@ app.use("/graphql",graphqlHTTP({
 })); 
 
 
-app.listen(4000,()=> {
-    console.log('now listening at port 4000')
+app.listen(process.env.PORT,()=> {
+    console.log('now listening at port '+process.env.PORT)
 })  
 

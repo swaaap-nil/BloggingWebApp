@@ -2,7 +2,7 @@ import AWS from "aws-sdk"
 
 //see how to setup process env
 AWS.config.update({
-  accessKeyId: 'AKIAYI6QFDKBDI56EGRJ',
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: '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',
 });
 

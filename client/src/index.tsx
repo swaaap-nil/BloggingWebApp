@@ -7,7 +7,6 @@ import './assets/scss/base.scss'
 import 'antd/dist/antd'
 import '@quasar/extras/ionicons-v4'
 
-
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
    <App />
