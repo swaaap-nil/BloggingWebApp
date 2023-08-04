@@ -19,6 +19,8 @@ export const getPostByTitleQuery = gql`
       author
       date
       headImage
+      description
+      introduction
       content{
         subheading
         image
