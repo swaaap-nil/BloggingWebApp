@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, Divider,Select,Upload} from 'antd';
 import { useMutation } from '@apollo/client';
 import { addPostMutation } from '../assets/possibleQueries/possibleQueries';
@@ -7,7 +8,7 @@ import { Option } from 'antd/lib/mentions';
 import {  UploadOutlined } from '@ant-design/icons';
 import customUploadRequestHandler from '../customFunctions/upload-request-handler';
 import Chunk from "../components/write-in-chunks"
-
+import PostAdded from '../components/post-added';
 
 
   const layout = {
@@ -47,8 +48,8 @@ import Chunk from "../components/write-in-chunks"
 
   export default function ThisComponentisResponsibleForWritingBlogs(){
     const [chunks, setChunks] = useState<{ subheading?: string; content?: string; image?: string }[]>([]);
-
-  const [addToDatabase, { data, loading, error }] = useMutation(addPostMutation);
+    const navigate = useNavigate();
+    const [addToDatabase, { data, loading, error }] = useMutation(addPostMutation);
 
   const handleAddChunk = () => {
     setChunks([...chunks, {}]);
@@ -65,11 +66,11 @@ import Chunk from "../components/write-in-chunks"
     { 
 
          console.log("Fields From User= ",values.blog);
-        const entriesMadeInForm : FormDataType = values.blog;
+          const entriesMadeInForm : FormDataType = values.blog;
 
         //generating SubHeading And Content Array
-        const subHeadingAndContentArray: subHeadingAndContentType[] = [];
-        for (let i = 0; entriesMadeInForm[`subheading${i}`] && entriesMadeInForm[`content${i}`]; i++) {
+          const subHeadingAndContentArray: subHeadingAndContentType[] = [];
+          for (let i = 0; entriesMadeInForm[`subheading${i}`] && entriesMadeInForm[`content${i}`]; i++) {
           const contentItem = {
             
           subheading: entriesMadeInForm[`subheading${i}`],
@@ -77,9 +78,9 @@ import Chunk from "../components/write-in-chunks"
           content: entriesMadeInForm[`content${i}`],
           };
           subHeadingAndContentArray.push(contentItem);
-      }
+          }
        
-        const formData : FormDataType = {
+          const formData : FormDataType = {
           title: entriesMadeInForm.title,
           date: entriesMadeInForm.date,
           author: entriesMadeInForm.author,
@@ -89,16 +90,16 @@ import Chunk from "../components/write-in-chunks"
           content : subHeadingAndContentArray,
           headImage : entriesMadeInForm.headImage.file.response,
           thumbnail : entriesMadeInForm.thumbnail.file.response,
-      };
+          };
 
-      // console.warn("form data ="+ JSON.stringify(formData))
 
-      addToDatabase({variables:formData})
-        .then((result) => {
-        // Handle the response after the mutation is executed
-        console.log("Post added:", result.data.addPost);
-      })
-      .catch((error) => {
+        addToDatabase({variables:formData})
+            .then((result) => {
+            // Handle the response after the mutation is executed
+            console.log("Post added:", result.data.addPost);
+            navigate('/posted', { state: { isRedirected: true } })
+          })
+          .catch((error) => {
         // Handle errors
         // console.error("Error adding post:", error);
       });

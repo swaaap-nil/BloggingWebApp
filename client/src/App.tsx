@@ -5,11 +5,12 @@ import {BrowserRouter as Router,Route,Routes} from 'react-router-dom'
 import React from 'react'
 import Home from './pages/home.js';
 import Blog from './pages/blogsList.js';
-import Login from './pages/login';
-import Contact from './pages/contact.js';
+import Login from './pages/upcoming.tsx';
+import Upcoming from './pages/upcoming.js';
 import BlogContent from './pages/blog-content.js'
 import Error404Page from './pages/error-404.js'
 import WriteBlog from './pages/write-blog.tsx'
+import PostAdded from './components/post-added.tsx';
 import './index.css';
 
 import Footer from './components/footer.js';
@@ -40,11 +41,12 @@ export default function App() {
         <Routes>
           <Route path="/" element = {<Home/>}/>
           <Route path="/blog" element = {<Blog/>}/>
-          <Route path="/contact" element = {<Contact/>}/>
+          <Route path="/contact" element = {<Upcoming/>}/>
           <Route path="/login" element = {<Login/>}/>
           <Route path="/blog/:title" element={<BlogContent/>} />
           <Route path="/*" element={<Error404Page/>}/>
           <Route path='/write' element ={<WriteBlog/>} />
+          <Route path='/posted' element = {<PostAdded/>}/>
         </Routes>
         <Footer/>
         
