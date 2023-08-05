@@ -10,6 +10,7 @@
       upvotes: String,
       introduction : String,
       thumbnail : String,
+      verified : Boolean,
       content: [
         {
           subheading: String,

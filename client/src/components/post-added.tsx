@@ -1,7 +1,25 @@
-import React from 'react';
+import React,{useEffect } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
 import { Button, Result } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
-const PostAdded: React.FC = () => (
+const PostAdded: React.FC = () => {
+  
+
+  const location = useLocation();
+  let navigate = useNavigate()
+  useEffect(() => {
+  
+    const isRedirected = location.state?.isRedirected || false;
+    console.log('isRedirected:', isRedirected);
+    if(!isRedirected){
+
+      navigate('/error-403')
+
+    }
+  }, [location]);
+
+  return <div className='post-added-dialog-container'>
   <Result
     status="success"
     title="Successfully Added!"
@@ -13,6 +31,7 @@ const PostAdded: React.FC = () => (
       <Button key="buy">Write More</Button>,
     ]}
   />
-);
+  </div>
+};
 
 export default PostAdded;

@@ -1,4 +1,4 @@
-    var { GraphQLObjectType ,GraphQLInputObjectType} = require("graphql")
+    var { GraphQLObjectType ,GraphQLInputObjectType, GraphQLBoolean} = require("graphql")
     var { GraphQLList, GraphQLSchema, GraphQLString,GraphQLID,GraphQLInt ,GraphQLJson} = require( "graphql") // ES6
     var script = require("lodash") // script for searching thru arrays
     const Post = require("../models/postModel")
@@ -36,6 +36,7 @@
             thumbnail : {type : GraphQLString},
             image :  {type : GraphQLString},
             upvotes : {type : GraphQLString},
+            verified : {type : GraphQLBoolean},
             introduction : {type : GraphQLString},
             content :{type : new GraphQLList (PostKeAndarKaContentFieldKaType)}
         })
@@ -78,7 +79,7 @@
                 args : {},
                 resolve(parent,args){
                     //return all the posts that should be present on the argument page number
-                    return Post.find({})
+                    return Post.find({verified : true})
                 }
             },
 
@@ -122,7 +123,7 @@
                     content : {type :new GraphQLList ( ContentSubTypeInput) }
                 }, 
                     resolve(parent,args){
-                        console.log("reached resolve function with " + JSON.stringify(args))
+                       // console.log("reached resolve function with " + JSON.stringify(args))
                         const { title, date, categories, author, description, introduction, content,headImage,thumbnail } = args;
                         let post = new Post({
                             title,
@@ -134,6 +135,7 @@
                             content,
                             headImage,
                             thumbnail,
+                            verified : false
                         });
                         return post.save()
                     }

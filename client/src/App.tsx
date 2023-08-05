@@ -5,12 +5,13 @@ import {BrowserRouter as Router,Route,Routes} from 'react-router-dom'
 import React from 'react'
 import Home from './pages/home.js';
 import Blog from './pages/blogsList.js';
-import Login from './pages/upcoming.tsx';
-import Upcoming from './pages/upcoming.js';
+import Login from './pages/login.tsx';
+import Upcoming from './pages/upcoming.tsx';
 import BlogContent from './pages/blog-content.js'
 import Error404Page from './pages/error-404.js'
 import WriteBlog from './pages/write-blog.tsx'
 import PostAdded from './components/post-added.tsx';
+import NotAllowed from './components/not-allowed-403.tsx';
 import './index.css';
 
 import Footer from './components/footer.js';
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="/*" element={<Error404Page/>}/>
           <Route path='/write' element ={<WriteBlog/>} />
           <Route path='/posted' element = {<PostAdded/>}/>
+          <Route path='/error-403' element = {<NotAllowed/>}/>
         </Routes>
         <Footer/>
         

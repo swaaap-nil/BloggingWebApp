@@ -1,53 +1,48 @@
-
 import React from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Avatar, List } from 'antd';
 
-const onFinish = (values: any) => {
-  console.log('Success:', values);
-};
+const data = [
+  {
+    title: 'introduce verified tag on each post and show posts only which have been verified',
+  },
+  {
+    title: 'implment sessional storage of images before hitting submit button',
+  },
+  {
+    title: 'implmenet an interface for the admin to view and approve the posts',
+  },
+  {
+    title: 'show form submitted sucessfully on successfull submission',
+  },
+  {
+    title : 'Allow only authenticated users to write posts'
+  },
+  {
+    title : 'introduce upvotes'
+  },
+  {
+    title : 'intoduce comments but only by registered users'
+  }
+];
 
-const onFinishFailed = (errorInfo: any) => {
-  console.log('Failed:', errorInfo);
-};
+const Upcoming: React.FC = () => (
 
-const Login: React.FC = () => (<div className="login-dabba">
-  <Form
-    name="basic"
-    labelCol={{ span: 8 }}
-    wrapperCol={{ span: 16 }}
-    style={{ maxWidth: 600 }}
-    initialValues={{ remember: true }}
-    onFinish={onFinish}
-    onFinishFailed={onFinishFailed}
-    autoComplete="off"
-  >
-    <Form.Item
-      label="Username"
-      name="username"
-      rules={[{ required: true, message: 'Please input your username!' }]}
-    >
-      <Input />
-    </Form.Item>
-
-    <Form.Item
-      label="Password"
-      name="password"
-      rules={[{ required: true, message: 'Please input your password!' }]}
-    >
-      <Input.Password />
-    </Form.Item>
-
-    <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-      <Checkbox>Remember me</Checkbox>
-    </Form.Item>
-
-    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-      <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-    </Form.Item>
-  </Form>
+  <div>
+      <List 
+    itemLayout="horizontal"
+    dataSource={data}
+    renderItem={(item, index) => (
+      <List.Item>
+        <List.Item.Meta
+          avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
+          title={<a href="https://ant.design">{item.title}</a>}
+          description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+        />
+      </List.Item>
+    )}
+  />
   </div>
+  
 );
 
-export default Login;
+export default Upcoming;
