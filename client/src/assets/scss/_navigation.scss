@@ -78,6 +78,7 @@ and (max-width: 999px){
         scroll-behavior: unset;
 
         .ion-ios-menu{
+            justify-content: center;
             display: flex;
         }
         .menu-content-container{

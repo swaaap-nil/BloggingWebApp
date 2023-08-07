@@ -5,7 +5,7 @@ export default function Footer(){
     
         <footer class="w-full text-gray-700 bg-gray-100 body-font"  >
             <div
-                class="container flex flex-col flex-wrap px-5 py-24 mx-auto md:items-center lg:items-start md:flex-row md:flex-no-wrap">
+                class="container flex flex-col flex-wrap px-0 py-24 mx-auto md:items-center lg:items-start md:flex-row md:flex-no-wrap">
                 <div class="flex-shrink-0 w-64 mx-auto text-center md:mx-0 md:text-left">
                     <a class="flex items-center justify-center font-medium text-gray-900 title-font md:justify-start">
                         <svg class="w-auto h-5 text-gray-900 fill-current" viewBox="0 0 202 69"
@@ -111,7 +111,7 @@ export default function Footer(){
                 </div>
             </div>
             <div class="bg-gray-300">
-                <div class="container px-5 py-4 mx-auto">
+                <div class="container px-0 py-4 mx-auto">
                     <p class="text-sm text-gray-700 capitalize xl:text-center">© 2020 All rights reserved </p>
                 </div>
             </div>

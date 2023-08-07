@@ -46,8 +46,6 @@ import { getPostsQuery } from '../assets/possibleQueries/possibleQueries';
                 The blog
             </div>
 
-            
-
 
             <div className='heading-main'>
                 Writings From our team
