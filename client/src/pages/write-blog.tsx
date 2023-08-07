@@ -165,9 +165,7 @@ import { DownloadOutlined } from '@ant-design/icons';
           </Upload>
          </Form.Item> 
         
-        {/* <Form.Item name={['blog', 'date']} label="date" rules={[{ required :true }]}>
-          <Input />
-        </Form.Item> */}
+        
 
         <Form.Item name={['blog', 'author']} label="author name" rules={[{ required :true }]}>
           <Input />
@@ -186,13 +184,13 @@ import { DownloadOutlined } from '@ant-design/icons';
             ))}
         </div>
         
-          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+          <Form.Item >
             <Button type="primary" shape="circle" icon={ <AiOutlinePlus/>} onClick={handleAddChunk} >
               </Button>
           </Form.Item>
 
 
-          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+          <Form.Item >
             <Button className="button-color-fix" type="primary" htmlType="submit">
               Submit
             </Button>

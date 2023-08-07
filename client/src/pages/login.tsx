@@ -16,7 +16,7 @@ type FieldType = {
 };
 
 const App: React.FC = () => (
-  <Form
+  <Form className='login-dabba'
     name="basic"
     labelCol={{ span: 8 }}
     wrapperCol={{ span: 16 }}
@@ -52,7 +52,7 @@ const App: React.FC = () => (
 
     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
       <Button type="primary" htmlType="submit">
-        Submit
+        Login
       </Button>
     </Form.Item>
   </Form>

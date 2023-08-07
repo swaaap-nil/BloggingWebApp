@@ -9,6 +9,9 @@ const data = [
     title : `disable the blue tap bg when clicking the hamburger menu`
   },
   {
+    title: `enable resizing in front end`
+  },
+  {
     title: 'implement sessional storage of images before hitting submit button',
   },
   {
