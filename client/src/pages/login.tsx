@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 
@@ -10,7 +9,13 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
 };
 
-const Login: React.FC = () => (<div className="login-dabba">
+type FieldType = {
+  username?: string;
+  password?: string;
+  remember?: string;
+};
+
+const App: React.FC = () => (
   <Form
     name="basic"
     labelCol={{ span: 8 }}
@@ -21,15 +26,15 @@ const Login: React.FC = () => (<div className="login-dabba">
     onFinishFailed={onFinishFailed}
     autoComplete="off"
   >
-    <Form.Item
-      label="Username"
+    <Form.Item<FieldType>
+      label="UserName"
       name="username"
-      rules={[{ required: true, message: 'Please input your username!' }]}
+      rules={[{ required: true, message: 'Please input your password!' }]}
     >
-      <Input />
+      <Input/>
     </Form.Item>
 
-    <Form.Item
+    <Form.Item<FieldType>
       label="Password"
       name="password"
       rules={[{ required: true, message: 'Please input your password!' }]}
@@ -37,7 +42,11 @@ const Login: React.FC = () => (<div className="login-dabba">
       <Input.Password />
     </Form.Item>
 
-    <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+    <Form.Item<FieldType>
+      name="remember"
+      valuePropName="checked"
+      wrapperCol={{ offset: 8, span: 16 }}
+    >
       <Checkbox>Remember me</Checkbox>
     </Form.Item>
 
@@ -47,7 +56,6 @@ const Login: React.FC = () => (<div className="login-dabba">
       </Button>
     </Form.Item>
   </Form>
-  </div>
 );
 
-export default Login;
+export default App;

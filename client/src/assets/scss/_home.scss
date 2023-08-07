@@ -1,5 +1,5 @@
 @import './_variables';
-@import './blog';
+
 
 .sez{
     align-items: center;
@@ -12,10 +12,12 @@
     color:$black-level-2;
     font-size:60px;
     font-family:Inter V;
-    display: flex;
+    display: flex;  
+    padding-left: 8vw;
+    padding-right: 8vw;
     justify-content: center;
     letter-spacing:-1.5px;
-    outline:none;
+    outline: none;
 }
 
     .heading-super-script{
@@ -31,22 +33,20 @@
 
     .heading-sub-script{
         color:$black-level-3;
-        width: 100%;
         display: flex;
         font-size: 15px;
         justify-content: center;
         align-items: center;
-        margin-top: 10px;
+        padding-top: 1vw;
+        padding-bottom: 1vw;
+        padding-left: 8vw;
+        padding-right: 8vw;
 
     }
+    
+        
 
-    .banner{
-        width: 1920px;
-        height: 600px;
-        margin-top: 40px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
+   
 
     .pagination{
         width: 100%;
@@ -55,3 +55,157 @@
         margin-top: 25px;
         padding-bottom: 20px;
       }
+
+      .banner{
+        max-width:100%;
+        height:auto;
+        padding-left: 2vw;
+        padding-right:2vw;
+      }
+
+      .posts-container{
+        padding-top: 2vw;
+        display: grid;
+        padding-left: 2vw;
+        padding-right: 2vw;
+        
+        .blog-post{
+    
+          width:330px;
+          justify-self: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      
+              a{
+                text-decoration: none;
+              }
+              .thumbnail{
+                height:205px;
+                width:330px
+              }
+              
+      
+              .name-date-container{
+                color:$black-level-0;
+                margin-top: 15px;
+                font-size:13px;
+                letter-spacing:0.7px;
+                line-height:auto;
+                
+              }
+      
+              .title{
+                
+                color:$black-level-1;
+                font-size:21px;
+                width: 330px;
+                font-weight: 510;
+                font-family:Inter;
+                padding-top: 10px;
+                letter-spacing:-0.8px;
+                line-height:auto;
+              }
+              .description{
+                margin-top: 5px;
+                color:$black-level-3;
+                font-size:13px;
+                font-family:Inter;
+                letter-spacing:0.5px;
+                line-height:auto;
+              }
+              .tags-container {
+                color:$black-level-2;
+                margin-top: 10px;
+                display: flex-start;
+                justify-content: center;
+                align-items: left;
+
+                      .tag-border
+                            {
+                              
+                              display: inline-flex;
+                              border-radius:91px;
+                              border:1px solid $black-level-3;
+                              align-content: center;
+                              padding-inline-start: 10px;
+                              padding-inline-end: 10px;
+                              margin-right: 10px;
+                              margin-bottom: 5px;
+                              padding-top: 2px;
+                              padding-bottom: 2px;
+                              font-size: 12px;
+      
+            }
+          }
+      
+        }
+
+      }
+
+/* ----------- Phones ----------- */
+@media screen 
+and (max-width: 719px)
+ {
+  .posts-container{
+    
+    row-gap: 30px;
+    grid-template-columns: repeat(1,1fr);
+  }
+  .banner{
+    display: none;
+  }
+}
+
+/* ----------- Tablets ----------- */
+@media screen 
+and (min-width: 720px) 
+and (max-width: 1199px)
+ {
+  .posts-container{
+    row-gap: 30px;
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+
+/* ----------- Laptops ----------- */
+  /* Remeber that posts-container = gridbox and justify content: center centers the gridBox(posts-container).*/
+          
+          /* ----------- Non-Retina Screens ----------- */
+          @media screen 
+          and (min-width: 1200px) 
+          and (max-width: 1500px) 
+          and (-webkit-min-device-pixel-ratio: 1) { 
+
+            .posts-container{
+              row-gap: 30px;
+              grid-template-columns: repeat(3,1fr);
+            }
+          }
+
+          /* ----------- Retina Screens ----------- */
+          // @media screen 
+          // and (min-width: 1200px) 
+          // and (max-width: 1500px) 
+          // and (-webkit-min-device-pixel-ratio: 2)
+          // and (min-resolution: 192dpi) { 
+            
+          //   .posts-container{
+          //     display: grid;
+          //     row-gap: 20px;
+          //     justify-content: center;
+          //     column-gap: 20px;
+          //     grid-template-columns: repeat(3,1fr);
+          //   }
+            
+          // }
+
+/* ----------- very large screens ----------- */
+@media(min-width: 1500px)
+{
+      .posts-container{
+        grid-template-columns: repeat(4,1fr);
+      }
+}
+  

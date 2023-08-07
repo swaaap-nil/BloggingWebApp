@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import './assets/scss/base.scss'
 import 'antd/dist/antd'
-import '@quasar/extras/ionicons-v4'
+import '@quasar/extras/ionicons-v4/ionicons-v4.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(

@@ -3,17 +3,15 @@ import { Avatar, List } from 'antd';
 
 const data = [
   {
-    title: 'introduce verified tag on each post and show posts only which have been verified',
+    title : `implement Authentication`
   },
   {
-    title: 'implment sessional storage of images before hitting submit button',
+    title: 'implement sessional storage of images before hitting submit button',
   },
   {
-    title: 'implmenet an interface for the admin to view and approve the posts',
+    title: 'implement an interface for the admin to view and approve the posts',
   },
-  {
-    title: 'show form submitted sucessfully on successfull submission',
-  },
+  
   {
     title : 'Allow only authenticated users to write posts'
   },
@@ -21,7 +19,13 @@ const data = [
     title : 'introduce upvotes'
   },
   {
-    title : 'intoduce comments but only by registered users'
+    title : 'introduce comments but only by registered users'
+  },
+  {
+    title : `implement loopCV's form style`
+  },
+  {
+    title : `show preview before adding post`
   }
 ];
 

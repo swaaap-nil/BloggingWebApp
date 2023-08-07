@@ -42,7 +42,7 @@ export default function BlogContent(){
 
     return <div className="main-dabba">
             
-            <div className="blog-post">
+            <div className="complete-post">
 
                 <div className="blog-heading">
                   {post.title}
@@ -52,9 +52,8 @@ export default function BlogContent(){
                   by {post.author} on {post.date} 
                 </div>
 
-                <div className="heading-image">
-                  <img src={headImage}/>
-                </div>
+                  <img className="head-image" src={headImage}/>
+               
 
                 <div className="introduction-paragraph">
                 {post.introduction}

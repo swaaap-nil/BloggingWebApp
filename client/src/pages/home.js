@@ -46,8 +46,10 @@ import { getPostsQuery } from '../assets/possibleQueries/possibleQueries';
                 The blog
             </div>
 
+            
 
-           <div className='heading-main'>
+
+            <div className='heading-main'>
                 Writings From our team
             </div>
 
@@ -61,10 +63,7 @@ import { getPostsQuery } from '../assets/possibleQueries/possibleQueries';
                 <img className='banner' src='https://picsum.photos/1920/600'/>
             </div>
 
-
-            <div>
-                {data && <AllPosts postsArray = {currentPosts}/>}
-            </div>
+            {data && <AllPosts postsArray = {currentPosts}/>}
 
 
             <div className='pagination'>

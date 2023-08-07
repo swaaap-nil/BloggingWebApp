@@ -9,8 +9,8 @@ const AllPosts = React.memo((props) => {
   ));
 
   return (
-    <div className="grid grid-cols-4 justify-center">
-      {componentsArray}
+    <div className="posts-container">
+            {componentsArray}
     </div>
   );
 });

@@ -1,4 +1,4 @@
-
+import { AiOutlinePlus } from "react-icons/ai";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, Divider,Select,Upload} from 'antd';
@@ -9,6 +9,7 @@ import {  UploadOutlined } from '@ant-design/icons';
 import customUploadRequestHandler from '../customFunctions/upload-request-handler';
 import Chunk from "../components/write-in-chunks"
 import PostAdded from '../components/post-added';
+import { DownloadOutlined } from '@ant-design/icons';
 
 
   const layout = {
@@ -82,7 +83,7 @@ import PostAdded from '../components/post-added';
        
           const formData : FormDataType = {
           title: entriesMadeInForm.title,
-          date: entriesMadeInForm.date,
+          date: new Date().toDateString(),
           author: entriesMadeInForm.author,
           description: entriesMadeInForm.description,
           introduction: entriesMadeInForm.introduction,
@@ -106,7 +107,10 @@ import PostAdded from '../components/post-added';
   };
 
 
-  return (<Form className='write-blog-container'
+  return <div className='write-blog-container'>
+
+        
+        <Form className='form'
         {...layout}
         name="nest-messages"
         onFinish={onSubmitButtonBeingClicked}
@@ -161,9 +165,9 @@ import PostAdded from '../components/post-added';
           </Upload>
          </Form.Item> 
         
-        <Form.Item name={['blog', 'date']} label="date" rules={[{ required :true }]}>
+        {/* <Form.Item name={['blog', 'date']} label="date" rules={[{ required :true }]}>
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item name={['blog', 'author']} label="author name" rules={[{ required :true }]}>
           <Input />
@@ -183,9 +187,8 @@ import PostAdded from '../components/post-added';
         </div>
         
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-            <Button className="button-color-fix" type="primary" onClick={handleAddChunk}>
-            Add Chunk
-            </Button>
+            <Button type="primary" shape="circle" icon={ <AiOutlinePlus/>} onClick={handleAddChunk} >
+              </Button>
           </Form.Item>
 
 
@@ -195,7 +198,8 @@ import PostAdded from '../components/post-added';
             </Button>
           </Form.Item>
 
-      </Form>)  
+      </Form>
+      </div>  
   
 };
 

@@ -13,15 +13,11 @@ import WriteBlog from './pages/write-blog.tsx'
 import PostAdded from './components/post-added.tsx';
 import NotAllowed from './components/not-allowed-403.tsx';
 import './index.css';
-
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import Footer from './components/footer.js';
 
-
-
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-
 const client = new ApolloClient({
-  uri: 'https://bloggingwebapp-production.up.railway.app/graphql',
+  uri: 'http://localhost:4000/graphql',
   cache: new InMemoryCache(),
 });
 

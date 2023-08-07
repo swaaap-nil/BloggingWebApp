@@ -24,19 +24,17 @@ const EachChunk= (props)=>{
                             },[])
                         
                             return(
-                            <>
+                            <div className="chunk">
                                 <div className='chunk-subheading'>
                                     {currentChunk.subheading}
                                 </div>
                                 
-                                <div className="chunk-image">
-                                    <img src={chunkImageUrl}/>
-                                </div>
-                            
-                                <div className="chunk-content">
+                                    <img className="chunk-image" src={chunkImageUrl}/>
+                               
+                                <div className="chunk-contenta">
                                     {currentChunk.content}
                                 </div>
-                            </>
+                            </div>
                         )
                     }
  

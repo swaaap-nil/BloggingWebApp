@@ -1,4 +1,10 @@
 @import './_variables';
+
+
+
+:root {
+    --menu-height: 100vh; /* 100vh is 100% of the viewport height of current window */
+  }
 .site-navigation{
     height : 65px;
     width  : 100%;
@@ -7,48 +13,112 @@
     justify-content: space-between;
     color: $black-level-2;
     top: 0;
-    z-index: 0;
+    z-index: 100;
     position: relative;
 
-
-    .menu-content-container{
-        display: flex;
-        align-items: center;
-        margin-right: 30px;
-        
-
-    }
-
-    ul{
-        height : 100%;
-        display: flex;
-        padding-inline-start: 0;
-        list-style-type: none;
-        margin-right: 20px;
-        margin-block-start: 0;
-        margin-block-end: 0;
-        align-items: center;
-
-        a{
-            text-decoration: none;
-            padding : 0 20px 0 20px;
-            font-size: large;
-            color: $black-level-2;
-            
-            &:hover {
-                color: $blue;
+            .menu-title{
+                a{
+                    text-decoration: none;
+                    color: black;
+                  }
+                font-size: x-large;
+                display: flex;
+                align-items: center;
+                margin-left: 30px;
+                font-weight: 500;
+                align-items : center;
             }
-        }
-    }
 
-    .menu-title{
-        font-size: x-large;
-        display: flex;
-        align-items: center;
-        margin-left: 30px;
-        font-weight: 500;
-        align-items : center;
-    }
+            .ion-ios-menu{
+                font-size: 36px;
+                width: 65px;
+                align-items: center;
+                cursor: pointer;
+                display: none;
+            }
+
+            .menu-content-container{
+                display: flex;
+                align-items: center;
+                padding-right: 30px;
+
+             }
+
+            ul{
+                height : 100%;
+                display: flex;
+                padding-inline-start: 0;
+                list-style-type: none;
+                margin-right: 20px;
+                margin-block-start: 0;
+                margin-block-end: 0;
+                align-items: center;
+
+                a{
+                    text-decoration: none;
+                    padding : 0 20px 0 20px;
+                    font-size: large;
+                    color: $black-level-2;
+                    
+                    &:hover {
+                        color: $blue;
+                    }
+                }
+            }
+
+            
 
     
 } 
+
+@media screen 
+and (max-width: 999px){
+    .site-navigation{
+
+        scroll-behavior: unset;
+
+        .ion-ios-menu{
+            display: flex;
+        }
+        .menu-content-container{
+            display: none;
+            width: 300px;
+            padding-right: 0px;
+            height: 100vh;
+            background-color: white;
+            position: absolute;
+            top: 65px;
+            right: -300px;
+            transition: 300ms ease right;
+            
+            
+            ul{
+                height: auto;
+                width: 1/3vh;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: end;
+            }
+            li{
+                height: 40px;
+            }
+
+            &.active{
+                right: 0px;
+                display: block;
+                
+            }
+            .avatar{
+                column-gap: 10px;
+                font-size: larger;
+                padding-top: 50px;
+                display: flex;
+                flex-direction: row-reverse;
+                padding-right: 30px;
+                
+                
+            }
+            
+        }
+    }
+}

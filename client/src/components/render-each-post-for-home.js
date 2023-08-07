@@ -33,21 +33,20 @@ function EachPost(props){
 
         <Link to = {`/blog/${encodeURIComponent(currentPost.title)}`}>
         
-                <div className='thumbnail'>
-                    <img className='img' src={thumbnailUrl}/>
-                </div>
+                
+                <img className='thumbnail' src={thumbnailUrl}/>
 
                 <div className='name-date-container'>
-                {currentPost.author}-{currentPost.date}
+                {currentPost.author} · {currentPost.date}
                 </div>
                 
-                <h5 className="title">
+                <div className="title">
                     {currentPost.title}
-                </h5>
+                </div>
                 
-                <p className="description">
+                <div className="description">
                     {currentPost.description}
-                </p>
+                </div>
                 
                 <div className='tags-container'>
                     {renderedTagsArray}
