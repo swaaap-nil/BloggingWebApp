@@ -44,9 +44,7 @@
 
     }
     
-        
-
-   
+    
 
     .pagination{
         width: 100%;
@@ -64,10 +62,10 @@
       }
 
       .posts-container{
-        padding-top: 2vw;
+        padding: 2vw;
         display: grid;
-        padding-left: 2vw;
-        padding-right: 2vw;
+        row-gap: 30px;
+        
         
         .blog-post{
     

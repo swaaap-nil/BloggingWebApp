@@ -1,4 +1,4 @@
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus,AiOutlineMinus } from "react-icons/ai";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, Divider,Select,Upload} from 'antd';
@@ -56,6 +56,13 @@ import { DownloadOutlined } from '@ant-design/icons';
     setChunks([...chunks, {}]);
   };
 
+  const handleRemoveChunk = () => {
+    if (chunks.length > 0) {
+      const updatedChunks = chunks.slice(0, -1);
+      setChunks(updatedChunks);
+    }
+  };
+
   const handleChunkChange = (index, changedFields) => {
     setChunks((prevChunks) =>
       prevChunks.map((chunk, i) => (i === index ? { ...chunk, ...changedFields } : chunk))
@@ -75,7 +82,7 @@ import { DownloadOutlined } from '@ant-design/icons';
           const contentItem = {
             
           subheading: entriesMadeInForm[`subheading${i}`],
-          image: entriesMadeInForm[`image${i}`].file.response, // Replace with image data if you have it
+          image: entriesMadeInForm[`image${i}`]?.file.response || '', // Replace with image data if you have it
           content: entriesMadeInForm[`content${i}`],
           };
           subHeadingAndContentArray.push(contentItem);
@@ -89,7 +96,7 @@ import { DownloadOutlined } from '@ant-design/icons';
           introduction: entriesMadeInForm.introduction,
           categories : entriesMadeInForm.categories,
           content : subHeadingAndContentArray,
-          headImage : entriesMadeInForm.headImage.file.response,
+          headImage : entriesMadeInForm.headImage?.file.response || '',
           thumbnail : entriesMadeInForm.thumbnail.file.response,
           };
 
@@ -123,7 +130,7 @@ import { DownloadOutlined } from '@ant-design/icons';
           <Input />
         </Form.Item>
 
-        <Form.Item name={['blog','headImage']} label="headImage" >
+        <Form.Item name={['blog','headImage']} label="headImage" rules={[{ required :true }]}>
            <Upload name="logo" listType="picture" maxCount={1} customRequest={customUploadRequestHandler}>
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
@@ -159,7 +166,7 @@ import { DownloadOutlined } from '@ant-design/icons';
 
         </Form.Item>
 
-        <Form.Item name={['blog','thumbnail']} label="thumbnail">
+        <Form.Item name={['blog','thumbnail']} label="thumbnail" rules={[{ required :true }]}>
           <Upload name="logo" listType="picture" maxCount={1} customRequest={customUploadRequestHandler}>
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
@@ -171,9 +178,8 @@ import { DownloadOutlined } from '@ant-design/icons';
           <Input />
         </Form.Item>
 
-        <Divider />
+       <Divider />
 
-        <div>
             {chunks.map((chunk, index) => (
               <Chunk
                 key={index}
@@ -182,19 +188,21 @@ import { DownloadOutlined } from '@ant-design/icons';
                 onChange={handleChunkChange}
               />
             ))}
-        </div>
         
           <Form.Item >
-            <Button type="primary" shape="circle" icon={ <AiOutlinePlus/>} onClick={handleAddChunk} >
+            <Button  type="primary" shape="circle" icon={ <AiOutlinePlus/>} onClick={handleAddChunk} >
               </Button>
           </Form.Item>
 
-
           <Form.Item >
-            <Button className="button-color-fix" type="primary" htmlType="submit">
+            <Button type="primary" shape="circle" icon={ <AiOutlineMinus/>} onClick={handleRemoveChunk} >
+              </Button>
+          </Form.Item>
+
+            <Button type="primary" htmlType="submit">
               Submit
             </Button>
-          </Form.Item>
+          
 
       </Form>
       </div>  
