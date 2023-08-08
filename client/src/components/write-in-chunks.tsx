@@ -22,13 +22,13 @@ const Chunk = ({ index, chunk, onChange }) => {
 
   return ( <>
     
-      <Form.Item name={[`blog`,`subheading${index}`]} label={`subheading${index}`}>
+      <Form.Item name={[`blog`,`subheading${index}`]} label={`Subheading ${index+1}`}>
         <Input />
       </Form.Item>
-      <Form.Item name={[`blog`,`content${index}`]} label={`content${index}`}>
+      <Form.Item name={[`blog`,`content${index}`]} label={`Content`}>
         <Input.TextArea />
       </Form.Item>
-      <Form.Item name={[`blog`,`image${index}`]} label={`image${index}`}>
+      <Form.Item name={[`blog`,`image${index}`]} label={`Image`}>
         <Upload
              // Replace with your actual API endpoint for image upload
           showUploadList={true}
@@ -37,7 +37,8 @@ const Chunk = ({ index, chunk, onChange }) => {
           <Button>Upload Image</Button>
         </Upload>
       </Form.Item>
-      <Divider />
+      <Divider  />
+
       </>
   );
 };

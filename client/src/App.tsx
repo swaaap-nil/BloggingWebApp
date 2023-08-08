@@ -17,9 +17,10 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import Footer from './components/footer.js';
 
 const client = new ApolloClient({
-  uri: 'https://bloggingwebapp-production.up.railway.app/graphql',
+  uri: `${process.env.REACT_APP_SERVER_API}/graphql`,
   cache: new InMemoryCache(),
 });
+
 
 
 const user = {
