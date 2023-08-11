@@ -1,5 +1,9 @@
 @import './_variables';
 
+.loading-page{
+  margin: 50%;
+ 
+}
 
 .sez{
     align-items: center;
@@ -57,8 +61,7 @@
       .banner{
         max-width:100%;
         height:auto;
-        padding-left: 2vw;
-        padding-right:2vw;
+        
       }
 
       .posts-container{

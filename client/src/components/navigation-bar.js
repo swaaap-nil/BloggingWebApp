@@ -39,7 +39,7 @@ export default function Navigation ({user}) {
     <nav className= "site-navigation">
         <span className='menu-title'>
             <Link to = {`/`} >
-            Wasseypur Journals
+            Quickquill
             </Link>
         </span>  
         <div className={`menu-content-container ${menuActive && 'active'}`}>

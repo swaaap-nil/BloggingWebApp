@@ -47,7 +47,7 @@ export default function App() {
           <Route path='/posted' element = {<PostAdded/>}/>
           <Route path='/error-403' element = {<NotAllowed/>}/>
         </Routes>
-        <Footer class="px-0 "/>
+        <Footer className="px-0"/>
         
       </div>
     </Router>
