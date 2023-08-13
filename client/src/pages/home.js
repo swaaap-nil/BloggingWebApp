@@ -66,7 +66,7 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 
             <div className='banner'>
-                <img className='banner' src={`https://picsum.photos/1920/600`}/>
+                <img className='banner' src={`https://picsum.photos/1920/600` }/>
             </div>
 
             {data && <AllPosts postsArray = {currentPosts}/>}

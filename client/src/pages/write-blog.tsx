@@ -1,5 +1,5 @@
 import { AiOutlinePlus,AiOutlineMinus } from "react-icons/ai";
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, Divider,Select,Upload} from 'antd';
 import { useMutation } from '@apollo/client';
@@ -8,9 +8,13 @@ import { Option } from 'antd/lib/mentions';
 import {  UploadOutlined } from '@ant-design/icons';
 import customUploadRequestHandler from '../customFunctions/upload-request-handler';
 import Chunk from "../components/write-in-chunks"
-import PostAdded from '../components/post-added';
-import { DownloadOutlined } from '@ant-design/icons';
+import { useAuth0 } from "@auth0/auth0-react";
+import LoginPage from "../components/login";
+import { AuthenticationContext } from "../App";
 
+
+
+  
 
   const layout = {
     labelCol: { span: 8 },
@@ -48,74 +52,83 @@ import { DownloadOutlined } from '@ant-design/icons';
 
 
   export default function ThisComponentisResponsibleForWritingBlogs(){
-    const [chunks, setChunks] = useState<{ subheading?: string; content?: string; image?: string }[]>([]);
-    const navigate = useNavigate();
-    const [addToDatabase, { data, loading, error }] = useMutation(addPostMutation);
 
-  const handleAddChunk = () => {
-    setChunks([...chunks, {}]);
-  };
+   
+      const isAuthenticated = useContext(AuthenticationContext);
+      //if user is not authenticated
 
-  const handleRemoveChunk = () => {
-    if (chunks.length > 0) {
-      const updatedChunks = chunks.slice(0, -1);
-      setChunks(updatedChunks);
-    }
-  };
+      if(!isAuthenticated)
+      return <LoginPage/>
 
-  const handleChunkChange = (index, changedFields) => {
-    setChunks((prevChunks) =>
-      prevChunks.map((chunk, i) => (i === index ? { ...chunk, ...changedFields } : chunk))
-    );
-  };
+      //once user data has been fetched
+        const [chunks, setChunks] = useState<{ subheading?: string; content?: string; image?: string }[]>([]);
+        const navigate = useNavigate();
+        const [addToDatabase, { data, loading, error }] = useMutation(addPostMutation);
+        
 
-  //defines what to do once the submit button is clicked
-    function onSubmitButtonBeingClicked(values)
-    { 
+        const handleAddChunk = () => {
+          setChunks([...chunks, {}]);
+        };
 
-         console.log("Fields From User= ",values.blog);
-          const entriesMadeInForm : FormDataType = values.blog;
-
-        //generating SubHeading And Content Array
-          const subHeadingAndContentArray: subHeadingAndContentType[] = [];
-          for (let i = 0; entriesMadeInForm[`subheading${i}`] && entriesMadeInForm[`content${i}`]; i++) {
-          const contentItem = {
-            
-          subheading: entriesMadeInForm[`subheading${i}`],
-          image: entriesMadeInForm[`image${i}`]?.file.response || '', // Replace with image data if you have it
-          content: entriesMadeInForm[`content${i}`],
-          };
-          subHeadingAndContentArray.push(contentItem);
+        const handleRemoveChunk = () => {
+          if (chunks.length > 0) {
+            const updatedChunks = chunks.slice(0, -1);
+            setChunks(updatedChunks);
           }
-       
-          const formData : FormDataType = {
-          title: entriesMadeInForm.title,
-          date: new Date().toDateString(),
-          author: entriesMadeInForm.author,
-          description: entriesMadeInForm.description,
-          introduction: entriesMadeInForm.introduction,
-          categories : entriesMadeInForm.categories,
-          content : subHeadingAndContentArray,
-          headImage : entriesMadeInForm.headImage?.file.response || '',
-          thumbnail : entriesMadeInForm.thumbnail.file.response,
-          };
+        };
+
+        const handleChunkChange = (index, changedFields) => {
+          setChunks((prevChunks) =>
+            prevChunks.map((chunk, i) => (i === index ? { ...chunk, ...changedFields } : chunk))
+          );
+        };
+
+    //defines what to do once the submit button is clicked
+        const onSubmitButtonBeingClicked = (values)=>
+        { 
+
+            console.log("Fields From User= ",values.blog);
+              const entriesMadeInForm : FormDataType = values.blog;
+
+            //generating SubHeading And Content Array
+              const subHeadingAndContentArray: subHeadingAndContentType[] = [];
+              for (let i = 0; entriesMadeInForm[`subheading${i}`] && entriesMadeInForm[`content${i}`]; i++) {
+              const contentItem = {
+                
+              subheading: entriesMadeInForm[`subheading${i}`],
+              image: entriesMadeInForm[`image${i}`]?.file.response || '', // Replace with image data if you have it
+              content: entriesMadeInForm[`content${i}`],
+              };
+              subHeadingAndContentArray.push(contentItem);
+              }
+          
+              const formData : FormDataType = {
+              title: entriesMadeInForm.title,
+              date: new Date().toDateString(),
+              author: entriesMadeInForm.author,
+              description: entriesMadeInForm.description,
+              introduction: entriesMadeInForm.introduction,
+              categories : entriesMadeInForm.categories,
+              content : subHeadingAndContentArray,
+              headImage : entriesMadeInForm.headImage?.file.response || '',
+              thumbnail : entriesMadeInForm.thumbnail.file.response,
+              };
 
 
-        addToDatabase({variables:formData})
-            .then((result) => {
-            // Handle the response after the mutation is executed
-            console.log("Post added:", result.data.addPost);
-            navigate('/posted', { state: { isRedirected: true } })
-          })
-          .catch((error) => {
-        // Handle errors
-        // console.error("Error adding post:", error);
-      });
-  };
+            addToDatabase({variables:formData})
+                .then((result) => {
+                // Handle the response after the mutation is executed
+                console.log("Post added:", result.data.addPost);
+                navigate('/posted', { state: { isRedirected: true } })
+              })
+              .catch((error) => {
+            // Handle errors
+            // console.error("Error adding post:", error);
+          });
+      };
 
-
-  return <div className='write-blog-container'>
-
+      //cross checking that user is authenticated!
+      return isAuthenticated && <div className='write-blog-container'>
         
         <Form className='form'
         {...layout}
@@ -205,7 +218,9 @@ import { DownloadOutlined } from '@ant-design/icons';
           
 
       </Form>
+
+      
       </div>  
   
 };
-
+  
