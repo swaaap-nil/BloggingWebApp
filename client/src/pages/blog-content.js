@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getPostByTitleQuery } from "../assets/possibleQueries/possibleQueries";
 import { useQuery } from "@apollo/client";
 import AllChunks from "../components/display-all-chunks"
+import { Skeleton } from 'antd';
 
 export default function BlogContent(){
     const {title} = useParams();
@@ -33,7 +34,7 @@ export default function BlogContent(){
     },[data])
 
     if (loading) 
-        return <p>Loading...</p>;
+        return <Skeleton active />;
     if (error) 
         return <p>Error: {error.message}</p>;
 

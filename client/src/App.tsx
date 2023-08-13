@@ -1,11 +1,9 @@
 
-
 import Navigation from './components/navigation-bar.js';
 import {BrowserRouter as Router,Route,Routes} from 'react-router-dom'
 import React from 'react'
 import Home from './pages/home.js';
 import Blog from './pages/blogsList.js';
-import Login from './pages/login.tsx';
 import Upcoming from './pages/upcoming.tsx';
 import BlogContent from './pages/blog-content.js'
 import Error404Page from './pages/error-404.js'
@@ -13,44 +11,37 @@ import WriteBlog from './pages/write-blog.tsx'
 import PostAdded from './components/post-added.tsx';
 import NotAllowed from './components/not-allowed-403.tsx';
 import './index.css';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import {ApolloProvider } from '@apollo/client';
 import Footer from './components/footer.js';
+import { ApolloClientConfig } from './config.ts';
+import { useAuth0 } from "@auth0/auth0-react";
 
-const client = new ApolloClient({
-  uri: `${process.env.REACT_APP_SERVER_API}/graphql`,
-  cache: new InMemoryCache(),
-});
-
-
-
-const user = {
-  firstName : 'Swapnil',
-  lastName : "Suman"
-};
-
+//default context is not logged in
+export const AuthenticationContext = React.createContext(false);
 
 export default function App() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
   return (
-    <ApolloProvider client={client}> 
-    <Router>
-      <div className="App">
-        <Navigation user = {user}/>
-        
-        <Routes>
-          <Route path="/" element = {<Home/>}/>
-          <Route path="/blog" element = {<Blog/>}/>
-          <Route path="/contact" element = {<Upcoming/>}/>
-          <Route path="/login" element = {<Login/>}/>
-          <Route path="/blog/:title" element={<BlogContent/>} />
-          <Route path="/*" element={<Error404Page/>}/>
-          <Route path='/write' element ={<WriteBlog/>} />
-          <Route path='/posted' element = {<PostAdded/>}/>
-          <Route path='/error-403' element = {<NotAllowed/>}/>
-        </Routes>
-        <Footer className="px-0"/>
-        
-      </div>
-    </Router>
+    <ApolloProvider client={ApolloClientConfig}>
+      <AuthenticationContext.Provider value = {isAuthenticated}> 
+        <Router>
+          <div className="App">
+            <Navigation user = {user}/>
+              <Routes>
+                <Route path="/" element = {<Home/>}/>
+                <Route path="/blog" element = {<Blog/>}/>
+                <Route path="/contact" element = {<Upcoming/>}/>
+                <Route path="/blog/:title" element={<BlogContent/>} />
+                <Route path="/*" element={<Error404Page/>}/>
+                <Route path='/write' element ={<WriteBlog/>} />
+                <Route path='/posted' element = {<PostAdded/>}/>
+                <Route path='/error-403' element = {<NotAllowed/>}/>
+              </Routes>
+              <Footer className="px-0"/>
+          </div>
+        </Router>
+    </AuthenticationContext.Provider>
     </ApolloProvider>
     );
   }

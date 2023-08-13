@@ -3,7 +3,8 @@ import { Avatar, List } from 'antd';
 
 const data = [
   {
-    title : `implement Authentication`
+    title : `implement Authentication - DONE on 14 Aug 2023`,
+
   },
   {
     title : `disable the blue tap bg when clicking the hamburger menu`
