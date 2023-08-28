@@ -32,6 +32,7 @@ const EachChunk= (props)=>{
                                     <img className="chunk-image" src={chunkImageUrl}/>
                                
                                 <div className="chunk-contenta">
+                                    
                                     {currentChunk.content}
                                 </div>
                             </div>

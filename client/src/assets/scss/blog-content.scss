@@ -43,6 +43,7 @@
                 font-size:18px;
                 border-style:hidden;
                 width: 100%;
+                white-space: pre-wrap;
                 height: auto;
                 font-weight: 400;
             }
@@ -63,6 +64,7 @@
                             
                             font-size:18px;
                             font-weight: 350;
+                            white-space: pre-wrap;
                         }
             
                         .chunk-image

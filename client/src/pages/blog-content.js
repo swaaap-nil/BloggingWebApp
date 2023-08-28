@@ -56,7 +56,7 @@ export default function BlogContent(){
                
 
                 <div className="introduction-paragraph">
-                {post.introduction}
+                  {post.introduction}
                 </div>
 
                 <div className="chunks-container">
