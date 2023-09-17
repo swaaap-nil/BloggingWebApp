@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 .App {
+  font-family: 'Inter', sans-serif;
   text-align: center;
   outline: 1px solid red;
 
