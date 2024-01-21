@@ -11,10 +11,11 @@ import Chunk from "../components/write-in-chunks"
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginPage from "../components/login";
 import { AuthenticationContext } from "../App";
-
-
-
-  
+import type { GetProp, UploadFile, UploadProps } from 'antd';
+import ImgCrop from 'antd-img-crop';
+import ImgCropUpload from "../components/cropUploader";
+import generateRandomName from "../customFunctions/random-name-generator";
+type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
   const layout = {
     labelCol: { span: 8 },
@@ -50,10 +51,8 @@ import { AuthenticationContext } from "../App";
         }[];
   };
 
-
   export default function ThisComponentisResponsibleForWritingBlogs(){
 
-   
       const isAuthenticated = useContext(AuthenticationContext);
       //if user is not authenticated
 
@@ -61,11 +60,12 @@ import { AuthenticationContext } from "../App";
       return <LoginPage/>
 
       //once user data has been fetched
+      const [fileList, setFileList] = useState<UploadFile[]>([]);
+
         const [chunks, setChunks] = useState<{ subheading?: string; content?: string; image?: string }[]>([]);
         const navigate = useNavigate();
         const [addToDatabase, { data, loading, error }] = useMutation(addPostMutation);
         
-
         const handleAddChunk = () => {
           setChunks([...chunks, {}]);
         };
@@ -101,7 +101,7 @@ import { AuthenticationContext } from "../App";
               };
               subHeadingAndContentArray.push(contentItem);
               }
-          
+              
               const formData : FormDataType = {
               title: entriesMadeInForm.title,
               date: new Date().toDateString(),
@@ -110,7 +110,7 @@ import { AuthenticationContext } from "../App";
               introduction: entriesMadeInForm.introduction,
               categories : entriesMadeInForm.categories,
               content : subHeadingAndContentArray,
-              headImage : entriesMadeInForm.headImage?.file.response || '',
+              headImage : entriesMadeInForm.headImage.file.response,
               thumbnail : entriesMadeInForm.thumbnail.file.response,
               };
 
@@ -122,8 +122,7 @@ import { AuthenticationContext } from "../App";
                 navigate('/posted', { state: { isRedirected: true } })
               })
               .catch((error) => {
-            // Handle errors
-            // console.error("Error adding post:", error);
+            // TODOHandle errors
           });
       };
 
@@ -135,32 +134,25 @@ import { AuthenticationContext } from "../App";
         name="nest-messages"
         onFinish={onSubmitButtonBeingClicked}
         style={{ maxWidth: 800 }}
-        onFinishFailed={() => console.log("it never finished")}
+        onFinishFailed={(finishFailed) => {
+          console.log(finishFailed)}
+        }
         validateMessages={validateMessages}>
-        
           
-        <Form.Item name={['blog', 'title']} label="Main Heading" rules={[{ required: true }]}>
+        <Form.Item name={['blog', 'title']} label="Title of the Blog" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
 
-        <Form.Item name={['blog','headImage']} label="headImage" rules={[{ required :true }]}>
-           <Upload name="logo" listType="picture" maxCount={1} customRequest={customUploadRequestHandler}>
-              <Button icon={<UploadOutlined />}>Click to upload</Button>
-            </Upload>
-          </Form.Item> 
-        
-        <Form.Item name={['blog', 'introduction']} label="Introduction Paragraph" rules={[{ required :true }]}>
-          <Input.TextArea />
-        </Form.Item>
+        <Form.Item name={['blog','thumbnail']} label="Thumbnail Image (for Homepage)" rules={[{ required :true }]}>
+          <Upload  listType="picture" maxCount={1} customRequest={customUploadRequestHandler}>
+            <Button icon={<UploadOutlined />}>Click to upload</Button>
+          </Upload>
+         </Form.Item>
 
-        <Form.Item name={['blog', 'description']} label="1 line description" rules={[{ required :true }]}>
-          <Input/>
-        </Form.Item>
-
-        <Form.Item
-          name={['blog',"categories"]} label="categories" rules={[{ required: true, message: 'Please select related categories', type: 'array' }]}>
+         <Form.Item
+          name={['blog',"categories"]} label="Flairs" rules={[{ required: true, message: 'Please select related categories', type: 'array' }]}>
         
-            <Select mode="multiple" placeholder="Please select related categories" maxTagCount={3}>
+            <Select mode="multiple" placeholder="Please select related flairs" maxTagCount={3}>
                 <Option value="Technology">Technology</Option>
                 <Option value="Travel">Travel</Option>
                 <Option value="Life">Life</Option>
@@ -177,18 +169,32 @@ import { AuthenticationContext } from "../App";
                 <Option value="Career">Career</Option>
            </Select>
 
+        </Form.Item> 
+
+         <Form.Item name={['blog', 'description']} label="1 line description(for Homepage)" rules={[{ required :true }]}>
+          <Input/>
+        </Form.Item>
+        
+        <Form.Item name={['blog', 'introduction']} label="Introduction Paragraph" rules={[{ required :true }]}>
+          <Input.TextArea />
         </Form.Item>
 
-        <Form.Item name={['blog','thumbnail']} label="thumbnail" rules={[{ required :true }]}>
-          <Upload name="logo" listType="picture" maxCount={1} customRequest={customUploadRequestHandler}>
-            <Button icon={<UploadOutlined />}>Click to upload</Button>
-          </Upload>
-         </Form.Item> 
-        
-        
-
-        <Form.Item name={['blog', 'author']} label="author name" rules={[{ required :true }]}>
+        <Form.Item name={['blog', 'author']} label="Author Name" rules={[{ required :true }]}>
           <Input />
+        </Form.Item>
+
+        {/* <Form.Item name={['blog','headImage']} label="Opening Image" rules={[{ required :true }]}>
+        <ImgCrop showGrid showReset rotationSlider aspect ={3/2}>
+           <Upload action= {`${process.env.REACT_APP_IMAGE_API}/post/${generateRandomName()}`} name= "image" listType="picture" maxCount={1} >
+              <Button icon={<UploadOutlined/>}>Click to upload</Button>
+            </Upload>
+        </ImgCrop>
+        </Form.Item>  */}
+
+        <Form.Item name={['blog','headImage']} label="Opening Image" rules={[{ required :true }]}>
+          <ImgCropUpload  showGrid showReset rotationSlider aspect ={3/2} name= "image" listType="picture" maxCount={1} action={`${process.env.REACT_APP_IMAGE_API}/post/${generateRandomName()}`}>
+              <Button icon={<UploadOutlined />}>Upload image</Button>
+          </ImgCropUpload>
         </Form.Item>
 
        <Divider />

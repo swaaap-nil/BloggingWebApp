@@ -1,7 +1,6 @@
 import AWS from "aws-sdk"
 import { config } from "dotenv";
 config();
-//see how to setup process env
 
 const awsConfig = {
   accessKeyId: process.env.AWS_accessKeyId,
@@ -10,20 +9,9 @@ const awsConfig = {
 console.log(awsConfig)
 AWS.config.update(awsConfig);
 
-// interface recivedDataFromS3Type{
-//   LastModified :string
-//   ContentLength :string
-//   ContentType :string
-//   Metadata : any
-//   Body : {
-//     type : string
-//     data : number[]
-//   }
-// }
-
 const s3 = new AWS.S3();
 
-export default async function fetchFromS3Bucket(keyNameFortheFile ){
+export async function fetchFromS3(keyNameFortheFile){
 
     console.log("Downloading from S3 for key value: " +keyNameFortheFile)
     const params = {
@@ -45,4 +33,30 @@ export default async function fetchFromS3Bucket(keyNameFortheFile ){
       });
       
       
+}
+
+export function uploadToS3(fileTobeUploaded,keyNameFortheFile,fileType ){
+
+  console.log("uploadToS3 called")
+  const params = {
+      Bucket: process.env.S3_BUCKET_NAME || "",
+      Key: keyNameFortheFile,
+      Body: fileTobeUploaded,
+      ContentType: fileType,
+    };
+
+    return new Promise((resolve, reject) => {
+      s3.upload(params, (err, data) => {
+        if (err) {
+          console.error("error while uploading: " + err);
+          reject(""); 
+        } else {
+          console.log(`Image uploaded successfully. URL: ${data.Location}`);
+          // resolve(`${data.Location}`); // Resolve the promise with the URL
+          resolve()
+        }
+      });
+    });
+    
+    
 }

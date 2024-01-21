@@ -5,7 +5,7 @@ import promiseToGetCorrectUrl from "../customFunctions/async-fetch-handler";
 //generating each chunk of [ subheading , image , and content ]
 const EachChunk= (props)=>{
                             const currentChunk = props.eachChunk
-                            console.log("rendering chunk: "+ currentChunk.title)
+                            // console.log("rendering chunk: "+ currentChunk.title)
                             const[chunkImageUrl,setChunkImageUrl] = useState('')
                         
                             useEffect(()=>
@@ -15,7 +15,7 @@ const EachChunk= (props)=>{
                                     promiseToGetCorrectUrl(currentChunk.image)
                                     .then((returnedUrl)=>{
                                                 if(returnedUrl!=""){
-                                                    console.log("generatedImageUrl,so Re-rending Component")
+                                                    // console.log("generatedImageUrl,so Re-rending Component")
                                                     setChunkImageUrl(returnedUrl)
                                 }
                                 else

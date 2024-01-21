@@ -15,7 +15,7 @@ interface recievedDataFromS3Type{
 }
 
 
-export default async function promiseToGetCorrectUrl(keyNameForThumbnail : string):Promise<string>{
+export  async function promiseToGetCorrectUrl2(keyNameForThumbnail : string):Promise<string>{
 
   let recievedFileFromAWS : recievedDataFromS3Type ;
   let finalImageUrl : string
@@ -36,6 +36,34 @@ export default async function promiseToGetCorrectUrl(keyNameForThumbnail : strin
         if(finalImageUrl!="")
         finalImageUrl = convertdataArrayToImgUrl(recievedFileFromAWS.Body,recievedFileFromAWS.ContentType)
         resolve(finalImageUrl)
+        
+    })
+            
+    
+}
+
+export default async function promiseToGetCorrectUrl(imageKey : string):Promise<string>{
+
+  let recievedFileFromAWS : recievedDataFromS3Type ;
+  let finalImageUrl : string
+
+    
+  return new Promise(async (resolve,reject)=>{
+        
+    try {
+
+      const response = await fetch(`${process.env.REACT_APP_IMAGE_API}/get/${imageKey}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const imageBlob = await response.blob();
+      const imageUrl = URL.createObjectURL(imageBlob);
+      resolve(imageUrl);
+    } catch (error:any) {
+      console.error('Error fetching image:', error.message);
+      reject("")
+    }
         
     })
         

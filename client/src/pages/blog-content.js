@@ -22,7 +22,7 @@ export default function BlogContent() {
         try {
           const returnedUrl = await promiseToGetCorrectUrl(data.getPostByTitle.headImage);
           if (returnedUrl !== "") {
-            console.log("Generated ImageUrl Successfully, so Re-rending Component");
+            // console.log("Generated ImageUrl Successfully, so Re-rending Component");
             setHeadImageUrl(returnedUrl);
           } else {
             console.log("Received empty URL");

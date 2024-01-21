@@ -4,11 +4,9 @@ import express, { response } from "express";
 import { graphqlHTTP } from "express-graphql";
 import mongoose from "mongoose";
 import cors from "cors";
-import fetchFromS3Bucket from "./download-from-s3.mjs";
+import S3Router from "./s3Router.mjs";
 
 import schema from "./schema/schema.mjs";
-
-
 
 const app = express();
 app.use(cors());
@@ -30,28 +28,10 @@ app.use(
   })
 );
 
-app.use("/image/:imageKey", async (req, res) => {
-  try {
-    const s3Response = await fetchFromS3Bucket(req.params.imageKey);
-     if (Buffer.isBuffer(s3Response.Body)) {
-        // Set appropriate headers based on your S3 object
-        res.setHeader("Content-Type", s3Response.ContentType || "application/octet-stream");
-        res.setHeader("Content-Length", s3Response.ContentLength || 0);
-        res.end(s3Response.Body);
-      } else {
-        res.status(500).json({
-          message: "Invalid S3 response format",
-        });
-      }
 
-  } catch (error) {
-    res.status(500).send({
-      message: "AWS fetch failed",
-    });
-  }
-});
+app.use("/image",S3Router)
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 4000
 
 app.listen(PORT, () => {
     console.log(`Now listening at port ${PORT}`);

@@ -1,24 +1,34 @@
 import React, { memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import promiseToGetCorrectUrl from "../customFunctions/async-fetch-handler";
+
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 function EachPost(props){
     const currentPost = props.eachPost
     console.log("rendering post: "+ currentPost.title)
 
-    const[thumbnailUrl,setThumbNailUrl] = useState('https://picsum.photos/330/205')
+    const[thumbnailUrl,setThumbNailUrl] = useState('')
     
-    useEffect(()=>
-    {
-        const promise = promiseToGetCorrectUrl(currentPost.thumbnail)
-        promise.then((returnedUrl)=>{
-        if(returnedUrl!=""){
-            console.log("generatedImageUrl,so Re-rending Component")
-            setThumbNailUrl(returnedUrl)
-        }else
-        console.log("recieved empty url")
-    })
-    },[])
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const returnedUrl = await promiseToGetCorrectUrl(currentPost.thumbnail);
+          if (returnedUrl !== "") {
+            setThumbNailUrl(returnedUrl);
+          } else {
+            console.log("Received empty URL");
+          }
+        } catch (error) {
+          console.error("Error fetching image:", error.message);
+        }
+      };
+    
+      fetchData(); 
+    
+    }, []);
 
     //Rendering an array of all the tags
     const renderedTagsArray =  currentPost.categories.map(
@@ -33,8 +43,14 @@ function EachPost(props){
 
         <Link to = {`/blog/${encodeURIComponent(currentPost.title)}`}>
         
+        <div className="thumbnail">
+                {thumbnailUrl ? (
+                <img className="thumbnail" src={thumbnailUrl} alt="Thumbnail" />
+                ) : (
+                    <Spin style={{ position: "relative", top: "50%", left: "50%" }} indicator={antIcon} />
                 
-                <img className='thumbnail' src={thumbnailUrl}/>
+                )}
+             </div>
 
                 <div className='name-date-container'>
                 {currentPost.author} · {currentPost.date}
