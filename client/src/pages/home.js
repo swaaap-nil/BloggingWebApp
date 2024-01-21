@@ -13,8 +13,6 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
   const[currentPage,setCurrentPage]=useState(1)
   const[postsPerPage,setPostsPerPage] = useState(4) 
   
-  
- 
   //use query is a apollo react asyncnous hook
   // TODO keep it in seperate file and make sure to return asyncronously that is return only when data from query is ready 
   const { loading, error, data } = useQuery(getPostsQuery,{
@@ -42,8 +40,6 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
    const handlePageChange = (pageNumber,pageSize)=>  {
      setCurrentPage(pageNumber)
    }
-   
-   
 
   return (    
      
