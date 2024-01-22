@@ -1,6 +1,6 @@
 import express from "express";
 const S3Router = express.Router();
-import {fetchFromS3,uploadToS3 as uploadToS3} from "./s3.mjs";
+import {fetchFromS3,uploadToS3 as uploadToS3} from "./aws.mjs";
 import multer from 'multer';
 
 // Set up Multer for handling file uploads
