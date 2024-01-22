@@ -4,7 +4,7 @@ import type { ImgCropProps } from 'antd-img-crop';
 import React from 'react';
 
 const ImgCropUpload: React.FC<UploadProps & ImgCropProps> = (props) => (
-  <ImgCrop>
+  <ImgCrop {...props}>
     <Upload {...props} />
   </ImgCrop>
 );

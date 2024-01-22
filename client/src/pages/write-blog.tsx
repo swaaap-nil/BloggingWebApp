@@ -144,9 +144,9 @@ type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
         </Form.Item>
 
         <Form.Item name={['blog','thumbnail']} label="Thumbnail Image (for Homepage)" rules={[{ required :true }]}>
-          <Upload  listType="picture" maxCount={1} customRequest={customUploadRequestHandler}>
-            <Button icon={<UploadOutlined />}>Click to upload</Button>
-          </Upload>
+          <ImgCropUpload showGrid showReset rotationSlider aspect ={3/2} name= "image" listType="picture" maxCount={1} action={`${process.env.REACT_APP_IMAGE_API}/post/${generateRandomName()}`}>
+              <Button icon={<UploadOutlined />}>Upload image</Button>
+          </ImgCropUpload>
          </Form.Item>
 
          <Form.Item
@@ -183,16 +183,8 @@ type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
           <Input />
         </Form.Item>
 
-        {/* <Form.Item name={['blog','headImage']} label="Opening Image" rules={[{ required :true }]}>
-        <ImgCrop showGrid showReset rotationSlider aspect ={3/2}>
-           <Upload action= {`${process.env.REACT_APP_IMAGE_API}/post/${generateRandomName()}`} name= "image" listType="picture" maxCount={1} >
-              <Button icon={<UploadOutlined/>}>Click to upload</Button>
-            </Upload>
-        </ImgCrop>
-        </Form.Item>  */}
-
         <Form.Item name={['blog','headImage']} label="Opening Image" rules={[{ required :true }]}>
-          <ImgCropUpload  showGrid showReset rotationSlider aspect ={3/2} name= "image" listType="picture" maxCount={1} action={`${process.env.REACT_APP_IMAGE_API}/post/${generateRandomName()}`}>
+          <ImgCropUpload showGrid showReset rotationSlider aspect ={2/1} name= "image" listType="picture" maxCount={1} action={`${process.env.REACT_APP_IMAGE_API}/post/${generateRandomName()}`}>
               <Button icon={<UploadOutlined />}>Upload image</Button>
           </ImgCropUpload>
         </Form.Item>
