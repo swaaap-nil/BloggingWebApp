@@ -4,7 +4,6 @@ import { Button, Result } from 'antd';
 
 const App: React.FC = () => {
 
-  
     const { loginWithRedirect } = useAuth0();
 
   return <Result
