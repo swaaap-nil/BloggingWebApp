@@ -1,5 +1,5 @@
 import React from 'react';
-import AllPosts from "../components//display-all-posts-at-home"
+import AllPosts from "../components/display-all-posts-at-home"
 import { useQuery } from '@apollo/client';
 import { getPostsQuery } from '../assets/possibleQueries/possibleQueries';
 
