@@ -4,7 +4,7 @@ import express, { response } from "express";
 import { graphqlHTTP } from "express-graphql";
 import mongoose from "mongoose";
 import cors from "cors";
-import S3Router from "./s3Router.mjs";
+import S3Router from "./router.mjs";
 
 import schema from "./schema/schema.mjs";
 
