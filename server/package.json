@@ -2,15 +2,19 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.mjs",
+  "main": "src/server.mjs",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.mjs"
+    "dev": "nodemon src/server.mjs",
+    "start": "node src/server.mjs",
+    "build": "babel src/ -d output"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.23.4",
+    "@babel/preset-env": "^7.23.8",
     "aws-sdk": "^2.1540.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -21,5 +25,8 @@
     "mongoose": "^7.4.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.7"
   }
 }

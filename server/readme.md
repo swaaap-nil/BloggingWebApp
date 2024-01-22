@@ -7,6 +7,6 @@ PORT =
 CONNECTION_URL_TO_MONGODB_DATABASE =
 
 ## start commands
-use yarn i 
-and yarn start 
+use yarn install
+and yarn run start 
 commands to setup & run the server
