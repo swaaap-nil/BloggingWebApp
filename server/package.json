@@ -28,6 +28,5 @@
     "@babel/core": "^7.23.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.7"
   }
 }
