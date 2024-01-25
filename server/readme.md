@@ -1,11 +1,11 @@
 # This server is setup using yarn.
 
 ## .env file
-AWS_accessKeyId=
+AWS_accessKeyId =
 
-AWS_secretAccessKey=
+AWS_secretAccessKey =
 
-CONNECTION_URL_TO_MONGODB_DATABASE=
+CONNECTION_URL_TO_MONGODB_DATABASE =
 
 PORT=
 
