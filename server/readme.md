@@ -13,5 +13,5 @@ S3_BUCKET_NAME=
 
 ## start commands
 use ```yarn install```
-and ```yarn run start ```
+and ```yarn run start```
 commands to setup & run the server
