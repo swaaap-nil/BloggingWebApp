@@ -7,9 +7,9 @@ AWS_secretAccessKey =
 
 CONNECTION_URL_TO_MONGODB_DATABASE =
 
-PORT=
+PORT =
 
-S3_BUCKET_NAME=
+S3_BUCKET_NAME =
 
 ## start commands
 use ```yarn install```
