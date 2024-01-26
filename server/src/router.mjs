@@ -36,7 +36,7 @@ S3Router.get(`/get/:imageKey`,async (req, res) => {
       const imageKey = req.params.imageKey;
   
       const s3Response = await uploadToS3(file, imageKey, fileType);
-      console.log('S3 Response:', s3Response);
+      // console.log('S3 Response:', s3Response);
       res.status(200).send(imageKey).end();
     } catch (error) {
       console.error(error); 

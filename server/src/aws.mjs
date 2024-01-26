@@ -6,14 +6,14 @@ const awsConfig = {
   accessKeyId: process.env.AWS_accessKeyId,
   secretAccessKey: process.env.AWS_secretAccessKey,
 }
-console.log(awsConfig)
+// console.log(awsConfig)
 AWS.config.update(awsConfig);
 
 const s3 = new AWS.S3();
 
 export async function fetchFromS3(keyNameFortheFile){
 
-    console.log("Downloading from S3 for key value: " +keyNameFortheFile)
+    // console.log("Downloading from S3 for key value: " +keyNameFortheFile)
     const params = {
         Bucket: process.env.S3_BUCKET_NAME || "",
         Key: keyNameFortheFile,
@@ -26,7 +26,7 @@ export async function fetchFromS3(keyNameFortheFile){
             reject(new Error("Couldnt fetch file from AWS S3")); // Reject the promise with the empty URL
           } else {
             // console.log("file from aws server "+ JSON.stringify(data));
-            console.log("fetch successfull");
+            // console.log("fetch successfull");
             resolve(data); // Resolve the promise with the URL
           }
         });
@@ -37,7 +37,7 @@ export async function fetchFromS3(keyNameFortheFile){
 
 export function uploadToS3(fileTobeUploaded,keyNameFortheFile,fileType ){
 
-  console.log("uploadToS3 called")
+  // console.log("uploadToS3 called")
   const params = {
       Bucket: process.env.S3_BUCKET_NAME || "",
       Key: keyNameFortheFile,
@@ -51,7 +51,7 @@ export function uploadToS3(fileTobeUploaded,keyNameFortheFile,fileType ){
           console.error("error while uploading: " + err);
           reject(""); 
         } else {
-          console.log(`Image uploaded successfully. URL: ${data.Location}`);
+          // console.log(`Image uploaded successfully. URL: ${data.Location}`);
           // resolve(`${data.Location}`); // Resolve the promise with the URL
           resolve()
         }
