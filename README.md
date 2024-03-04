@@ -15,6 +15,7 @@ Blogging webapp written using NodeJS,React,GraphQL
 ```bash
 # clone the repo
 $ git clone https://github.com/swaaap-nil/BloggingWebApp
+$ cd BloggingWebApp
 
 # SETTING UP THE BACKEND
 $ cd server
